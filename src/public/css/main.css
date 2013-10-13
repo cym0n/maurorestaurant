@@ -1,0 +1,69 @@
+html
+{
+    font-size: 100%;
+}
+body
+{
+   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+   font-size: 14px;
+}
+.container
+{
+    width: 100%;
+    background: #000;
+    height: 800px;
+}
+.head
+{
+    background: url('../images/background.gif') repeat-x;
+    height: 185px;
+}
+.head img,
+.head .box
+{
+    float:left;
+    height: 185px;
+}
+.head .claims
+{
+    font-weight: bold;
+    margin-left: 45px;
+    margin-top: 40px;
+    color: #cacaca;
+}
+.head .claims .claim1
+{
+    font-size: 1.2em;
+}
+.head .claims .claim2
+{
+    font-size: 1.7em;
+}
+.head .claims .claim3
+{
+    font-size: 2.2em;
+}
+.head .info
+{
+    margin-top: 30px;
+    margin-left: 30px;
+    text-align: right;
+    color: #fff;
+}
+.head .info .address
+{
+    font-size: 2.5em;
+}
+.head .info .timetable
+{
+    font-size: 1em;
+}
+.head .info .telephone
+{
+    font-size: 1.5em;
+}
+.head .info .facebook
+{
+    margin-top: 10px;
+}
+
