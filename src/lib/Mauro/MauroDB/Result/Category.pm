@@ -84,21 +84,21 @@ __PACKAGE__->set_primary_key("id");
 
 __PACKAGE__->has_many(
   "images",
-  "Valerius::ValeriusDB::Result::Image",
+  "Mauro::MauroDB::Result::Image",
   { "foreign.category" => "self.id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
 __PACKAGE__->has_many(
   "articles",
-  "Valerius::ValeriusDB::Result::Article",
+  "Mauro::MauroDB::Result::Article",
   { "foreign.category" => "self.id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
 __PACKAGE__->belongs_to(
   "parent_category",
-  "Valerius::ValeriusDB::Result::Category",
+  "Mauro::MauroDB::Result::Category",
   { id => "parent" },
   {
     is_deferrable => 1,
@@ -110,7 +110,7 @@ __PACKAGE__->belongs_to(
 
 __PACKAGE__->has_many(
   "subcategories",
-  "Valerius::ValeriusDB::Result::Category",
+  "Mauro::MauroDB::Result::Category",
   { "foreign.parent" => "self.id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );

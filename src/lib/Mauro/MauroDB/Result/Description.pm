@@ -99,7 +99,7 @@ __PACKAGE__->set_primary_key("id");
 
 __PACKAGE__->belongs_to(
   "image",
-  "Valerius::ValeriusDB::Result::Image",
+  "Mauro::MauroDB::Result::Image",
   { id => "image" },
   {
     is_deferrable => 1,

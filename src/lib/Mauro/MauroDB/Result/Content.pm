@@ -107,7 +107,7 @@ __PACKAGE__->set_primary_key("id");
 
 __PACKAGE__->belongs_to(
   "article",
-  "Valerius::ValeriusDB::Result::Article",
+  "Mauro::MauroDB::Result::Article",
   { id => "article" },
   {
     is_deferrable => 1,

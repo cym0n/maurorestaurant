@@ -85,14 +85,14 @@ __PACKAGE__->set_primary_key("id");
 
 __PACKAGE__->has_many(
   "descriptions",
-  "Valerius::ValeriusDB::Result::Description",
+  "Mauro::MauroDB::Result::Description",
   { "foreign.image" => "self.id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
 __PACKAGE__->belongs_to(
   "category",
-  "Valerius::ValeriusDB::Result::Category",
+  "Mauro::MauroDB::Result::Category",
   { id => "category" },
   {
     is_deferrable => 1,

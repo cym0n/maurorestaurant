@@ -112,14 +112,14 @@ __PACKAGE__->set_primary_key("id");
 
 __PACKAGE__->has_many(
   "contents",
-  "Valerius::ValeriusDB::Result::Content",
+  "Mauro::MauroDB::Result::Content",
   { "foreign.article" => "self.id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
 __PACKAGE__->belongs_to(
   "category",
-  "Valerius::ValeriusDB::Result::Category",
+  "Mauro::MauroDB::Result::Category",
   { id => "category" },
   {
     is_deferrable => 1,
