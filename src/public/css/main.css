@@ -10,6 +10,19 @@ body
    margin: 0;
    background: #000;
 }
+a
+{
+    text-decoration: none;
+    color: #bdbdbd; 
+}
+a:hover
+{
+    color: #fff;
+}
+a:visited
+{
+    color: #bbb;
+}
 .container
 {
     width: 100%;

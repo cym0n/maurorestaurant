@@ -2,12 +2,13 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head prefix="og: http://ogp.me/ns#">
-    <title>Mauro Restaurant</title>
+    <title>Mauro Restaurant - [% title %]</title>
     <link rel="stylesheet" href="[% request.uri_base %]/css/main.css" />
     <meta property="og:url" content="http://www.maurorestaurant.it" />
     <meta property="og:type" content="website"/>
     <meta property="og:title" content="Mauro Restaurant"/>
     <meta itemprop="name" content="Mauro Restaurant"/>
+    <meta name="keywords" content="mauro, restaurant, ristorante, milano, cucina, cucina tipica milanese, carne, pesce, pasta, primi, secondi, pranzo, cena" />
 </head>
 <body>
     <div id="fb-root"></div>
@@ -22,7 +23,7 @@
     </script>
     <div class="container">
         <div class="head">
-            <img src="/images/logo.png" />
+            <a href="/"><img src="/images/logo.png" /></a>
             <div class="box claims">
                 <div class="claim1">Carne e pesce</div>
                 <div class="claim2">prodotti di alta qualit&agrave;</div>
@@ -42,9 +43,7 @@
         </div>
         <div class="main">
             <div class="navbar">
-                <div><p><a href="#">MENU ITEM</a></p></div>
-                <div><p><a href="#">MENU ITEM</a></p></div>
-                <div><p><a href="#">MENU ITEM</a></p></div>
+                <div><p><a href="/dove-siamo">DOVE SIAMO</a></p></div>
             </div>
             <div class="content">
                 [% content %]
