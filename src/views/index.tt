@@ -1,1 +1,9 @@
-Lorem ipsum
+<div class="tagline">
+    <center>Venite a trovarci...</center>
+</div>
+<div class="showcase">
+    [% FOREACH image = images %]
+    <img src="[% image.source %]" />
+    [% END %]
+</div>
+

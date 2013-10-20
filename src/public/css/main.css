@@ -1,3 +1,4 @@
+/* LAYOUT */
 html
 {
     font-size: 100%;
@@ -6,17 +7,19 @@ body
 {
    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
    font-size: 14px;
+   margin: 0;
+   background: #000;
 }
 .container
 {
     width: 100%;
-    background: #000;
-    height: 800px;
 }
 .head
 {
     background: url('../images/background.gif') repeat-x;
     height: 185px;
+    margin-bottom: 40px;
+    overflow: hidden;
 }
 .head img,
 .head .box
@@ -65,5 +68,65 @@ body
 .head .info .facebook
 {
     margin-top: 10px;
+}
+.main
+{
+    overflow: hidden;
+}
+.navbar
+{
+    float: left;
+    margin-left: 15px;
+    margin-right: 100px;
+    font-size: 1.2em;
+    height: 500px;
+}
+.navbar p
+{
+    margin: 0;
+    line-height: 30px;
+}
+.navbar a
+{
+    color: #bdbdbd;
+    text-decoration: none;
+}
+.navbar a:hover
+{
+    color: #fff;
+}
+.content
+{
+    float: left;
+}
+.footer
+{
+    margin-top: 100px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    text-align: right;
+    color: #bbb;
+}
+.footer span
+{
+    margin-left: 20px;
+}
+
+/* PAGES */
+.showcase
+{
+    width: 600px;
+    margin-left: 100px;
+}
+.showcase img
+{
+    width: 250px;
+    height: 250px;
+}
+.tagline
+{
+    margin-bottom: 20px;
+    font-size: 2em;
+    color: #fff;
 }
 
