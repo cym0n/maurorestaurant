@@ -24,14 +24,16 @@
         <div class="head">
             <img src="/images/logo.png" />
             <div class="box claims">
-                <div class="claim1">prodotti di alta qualit&agrave;</div>
-                <div class="claim2">materie prime di stagione</div>
-                <div class="claim3">cucina tipica milanese</div>
+                <div class="claim1">Carne e pesce</div>
+                <div class="claim2">prodotti di alta qualit&agrave;</div>
+                <div class="claim3">materie prime di stagione</div>
+                <div class="claim4">cucina tipica milanese</div>
              </div>
              <div class="box info">
                  <div class="address">via gozzi 6 milano</div>
                  <div class="timetable">orari dalle 12:00 alle 14:30</div>
                  <div class="timetable">dalle 19:00 alle 22:30</div>
+                 <div class="timetable">chiusura sabato a pranzo e domenica</div>
                  <div class="telephone">Tel. +390239833858</div>
                  <div class="facebook">
                     <span class="share" style="font: 18px Arial,sans-serif;color:#FFF"></span><fb:like href="https://www.facebook.com/pages/Mauro-Restaurant/134557273421587" send="false" layout="button_count" width="450" show_faces="false"></fb:like>
