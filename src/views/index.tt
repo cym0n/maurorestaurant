@@ -2,8 +2,24 @@
     <center>Venite a trovarci...</center>
 </div>
 <div class="showcase">
+    [% i = 0 %]
+    <div style="position:relative; width: 510px; height: 510px">
     [% FOREACH image = images %]
-    <img src="[% image.source %]" />
+    [% IF i == 0 %]
+        [% style = "top: 0;left: 0;" %]
     [% END %]
+    [% IF i == 1 %]
+        [% style = "top: 0; right: 0;" %]
+    [% END %]
+    [% IF i == 2 %]
+        [% style = "bottom: 0;left: 0;" %]
+    [% END %]
+    [% IF i == 3 %]
+        [% style = "bottom: 0; right: 0;" %]
+    [% END %]
+    <img style="position: absolute; [% style %]" src="[% image.source %]" />
+    [% i = i+1 %]
+    [% END %]
+    </div>
 </div>
 
