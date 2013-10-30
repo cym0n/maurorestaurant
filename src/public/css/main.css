@@ -5,32 +5,42 @@ html
 }
 body
 {
+   background-image: url('../images/background.gif');
+   background-repeat: repeat-x;
+   background-color: #000;
    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
    font-size: 14px;
    margin: 0;
-   background: #000;
 }
 a
 {
     text-decoration: none;
     color: #bdbdbd; 
+    margin: 0;
+    border: 0;
 }
 a:hover
 {
     color: #fff;
+    margin: 0;
+    border: 0;
 }
 a:visited
 {
     color: #bbb;
 }
+img
+{
+    margin: 0;
+    border: 0;
+}
 .container
 {
-    width: 100%;
+    width: 980px;
     margin:0 auto; 
 }
 .head
 {
-    background: url('../images/background.gif') repeat-x;
     height: 185px;
     margin-bottom: 40px;
     overflow: hidden;
@@ -67,7 +77,7 @@ a:visited
 .head .info
 {
     margin-top: 30px;
-    margin-left: 30px;
+    margin-left: 20px;
     text-align: right;
     color: #fff;
 }
@@ -95,7 +105,7 @@ a:visited
 {
     float: left;
     margin-left: 15px;
-    margin-right: 100px;
+    margin-right: 65px;
     font-size: 1.2em;
     height: 500px;
 }
@@ -116,6 +126,7 @@ a:visited
 .content
 {
     float: left;
+    margin-left: 100px;
 }
 .footer
 {
@@ -134,7 +145,6 @@ a:visited
 .showcase
 {
     width: 600px;
-    margin-left: 100px;
 }
 .showcase img
 {
