@@ -50,7 +50,7 @@
             </div>
         </div>
         <div class="footer">
-            <span>P.IVA: xxxxxxxxxxxxxxx</span>
+            <!--span>P.IVA: xxxxxxxxxxxxxxx</span-->
             <span>powered by PerlDancer2</span>
         </div>
     </div>
