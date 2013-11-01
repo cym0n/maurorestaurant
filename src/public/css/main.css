@@ -77,7 +77,6 @@ img
 .head .info
 {
     margin-top: 30px;
-    margin-left: 20px;
     text-align: right;
     color: #fff;
 }
@@ -100,6 +99,10 @@ img
 .main
 {
     overflow: hidden;
+}
+.language .flag
+{
+    width: 25px;
 }
 .navbar
 {
@@ -144,7 +147,9 @@ img
 /* PAGES */
 .showcase
 {
-    width: 600px;
+    position:relative; 
+    width: 510px; 
+    height: 510px
 }
 .showcase img
 {
@@ -156,5 +161,9 @@ img
     margin-bottom: 20px;
     font-size: 2em;
     color: #fff;
+}
+.tagline p
+{
+    font-size: 0.5em;
 }
 

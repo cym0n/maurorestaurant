@@ -1,9 +1,9 @@
 <div class="tagline">
-    <center>Venite a trovarci...</center>
+    <center>[% text.title %]</center>
+    <p>[% text.text %]</p>
 </div>
 <div class="showcase">
     [% i = 0 %]
-    <div style="position:relative; width: 510px; height: 510px">
     [% FOREACH image = images %]
     [% IF i == 0 %]
         [% style = "top: 0;left: 0;" %]
@@ -20,6 +20,5 @@
     <img style="position: absolute; [% style %]" src="[% image.source %]" />
     [% i = i+1 %]
     [% END %]
-    </div>
 </div>
 

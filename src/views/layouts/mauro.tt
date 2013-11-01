@@ -1,5 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+[% PROCESS "common/$language/vocabulary.tt" %]        
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head prefix="og: http://ogp.me/ns#">
     <title>Mauro Restaurant - [% title %]</title>
@@ -17,7 +18,7 @@
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) return;
       js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/it_IT/all.js#xfbml=1";
+      js.src = "//connect.facebook.net/[% translate.EXTLANG %]/all.js#xfbml=1";
       fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
     </script>
@@ -25,17 +26,17 @@
         <div class="head">
             <a href="/"><img src="/images/logo.png" /></a>
             <div class="box claims">
-                <div class="claim1">Carne e pesce</div>
-                <div class="claim2">prodotti di alta qualit&agrave;</div>
-                <div class="claim3">materie prime di stagione</div>
-                <div class="claim4">cucina tipica milanese</div>
+                <div class="claim1">[% translate.CLAIM1 %]</div>
+                <div class="claim2">[% translate.CLAIM2 %]</div>
+                <div class="claim3">[% translate.CLAIM3 %]</div>
+                <div class="claim4">[% translate.CLAIM4 %]</div>
              </div>
              <div class="box info">
-                 <div class="address">via gozzi 6 milano</div>
-                 <div class="timetable">orari dalle 12:00 alle 14:30</div>
-                 <div class="timetable">dalle 19:00 alle 22:30</div>
-                 <div class="timetable">chiusura sabato a pranzo e domenica</div>
-                 <div class="telephone">Tel. +390239833858</div>
+                 <div class="address">via Gozzi 6, Milano</div>
+                 <div class="timetable">[% translate.TIMETABLE1 %]</div>
+                 <div class="timetable">[% translate.TIMETABLE2 %]</div>
+                 <div class="timetable">[% translate.TIMETABLE3 %]</div>
+                 <div class="telephone">[% translate.PHONE %]</div>
                  <div class="facebook">
                     <span class="share" style="font: 18px Arial,sans-serif;color:#FFF"></span><fb:like href="https://www.facebook.com/pages/Mauro-Restaurant/134557273421587" send="false" layout="button_count" width="450" show_faces="false"></fb:like>
                  </div>
@@ -43,7 +44,11 @@
         </div>
         <div class="main">
             <div class="navbar">
-                <div><p><a href="/dove-siamo">DOVE SIAMO</a></p></div>
+                <div class="language">
+                    <a href="/it/"><img class="flag" src="/images/Italy-icon.png" /></a>
+                    <a href="/en/"><img class="flag" src="/images/United-Kingdo-icon.png" /></a>
+                </div>
+                [% INSERT "common/$language/sidebar.tt" %] 
             </div>
             <div class="content">
                 [% content %]

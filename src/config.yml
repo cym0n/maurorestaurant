@@ -37,6 +37,9 @@ plugins:
         RaiseError: 1
         PrintError: 1
         mysql_enable_utf8: 1
+  Multilang: 
+    languages: ['it', 'en'] 
+    default: 'en' 
 
 admin_secured: 1
 site_closed: 1

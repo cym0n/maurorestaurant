@@ -1,6 +1,7 @@
 package Mauro;
 
 use Dancer2;
+use Dancer2::Plugin::Multilang;
 use Data::Dumper;
 
 set layout => 'mauro';
@@ -47,10 +48,14 @@ get '/' => sub {
     push @showcase, $restaurant[$restaurant_index[0]];
     push @showcase, $restaurant[$restaurant_index[1]];
     push @showcase, $plates[$plate_index[1]];
-    template "index", { title => "Homepage", images => \@showcase };
+
+    my $text = Strehler::Element::Article::get_last_by_date('homepage');
+    my %text_data = $text->get_ext_data(language);
+    template "index", { title => "Homepage", language => language, images => \@showcase, text => \%text_data };
 };
-get '/dove-siamo' => sub {
-   template "dove-siamo", { title => "Dove siamo" }; 
+get '/dove-siamo|/location' => sub 
+{
+  template "dove-siamo", { title => "Dove siamo", language => language }; 
 };
 
 
