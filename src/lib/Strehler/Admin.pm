@@ -20,7 +20,9 @@ hook before => sub {
     if((! session 'user') && request->path_info ne dancer_app->prefix . '/login')
     {
         session redir_url => request->path_info;
-        redirect dancer_app->prefix . '/login';
+        my $redir = redirect(dancer_app->prefix . '/login');
+        context->response->is_halted(0);
+        return $redir;
     }
 };
 
@@ -69,11 +71,16 @@ any '/login' => sub {
             session 'user' => $params_hashref->{'user'};
             if( session 'redir_url' )
             {
-                redirect session 'redir_url';
+                my $redir = redirect(session 'redir_url');
+                context->response->is_halted(0);
+                return $redir;
+                #redirect session 'redir_url';
             }
             else
             {
-                redirect dancer_app->prefix . '/';
+                my $redir = redirect('/');
+                context->response->is_halted(0);
+                return $redir;
             }
         }
         else
