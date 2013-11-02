@@ -57,6 +57,18 @@ get '/dove-siamo|/location' => sub
 {
   template "dove-siamo", { title => "Dove siamo", language => language }; 
 };
+get '/menu' => sub 
+{
+  my %items;
+  foreach my $cat ('antipasti', 'secondi di carne')#, 'primi', 'secondi di carne', 'secondi di pesce', 'desserts')  
+  {
+    my $plates = Strehler::Element::Article::get_list({category => $cat, 'entries_per_page' => -1});
+    my $tpltag = $cat;
+    $tpltag =~ s/ //g;
+    $items{$tpltag} = $plates->{'to_view'};
+  }
+  template "menu", { title => "Menu", language => language, %items }; 
+};
 
 
 

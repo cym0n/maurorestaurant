@@ -8,5 +8,10 @@
     TIMETABLE2 = "dalle 19:00 alle 22:30",
     TIMETABLE3 = "chiusura sabato a pranzo e domenica",
     PHONE = "Tel. +390239833858",
+    STARTERS = "Antipasti",
+    FIRSTCOURSES = "Primi",
+    MAINCOURSES_MEAT = "Secondi di carne",
+    MAINCOURSES_FISH = "Secondi di pesce",
+    DESSERTS = "Dolci"
 }
 %]

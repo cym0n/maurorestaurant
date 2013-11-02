@@ -34,6 +34,21 @@ img
     margin: 0;
     border: 0;
 }
+h1
+{
+    font-size: 3em;
+    font-weight: normal;
+    color: #fff;
+    line-height: 0em;
+    margin-bottom: 40px;
+}
+h2
+{
+    font-size: 2em;
+    font-weight: normal;
+    color: #fff;
+    line-height: 2em;
+}
 .container
 {
     width: 980px;
@@ -169,5 +184,11 @@ img
 .tagline p
 {
     font-size: 0.5em;
+}
+.menuplate
+{
+    margin-left: 40px;
+    color: #fff;
+    font-size: 1.2em;
 }
 
