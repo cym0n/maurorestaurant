@@ -14,40 +14,25 @@ get '/' => sub {
     my @restaurant = @{$restaurant_images->{'to_view'}};
     my @plates = @{$plates_images->{'to_view'}};
     my $choose_index = 0;
+    my @output;
     while($choose_index < 2)
     {
         my $rand =  int(rand($#plates + 1));
-        if($choose_index == 0)
-        {
-            $plate_index[0] = $rand;
-            $choose_index++;
-        }
-        elsif($choose_index == 1 && $rand != $plate_index[0])
-        {
-            $plate_index[1] = $rand;
-            $choose_index++;
-        }
+        push @output, splice(@plates, $rand, 1);
+        $choose_index++;
     }
     $choose_index = 0;
     while($choose_index < 2)
     {
         my $rand =  int(rand($#restaurant + 1));
-        if($choose_index == 0)
-        {
-            $restaurant_index[0] = $rand;
-            $choose_index++;
-        }
-        elsif($choose_index == 1 && $rand != $restaurant_index[0])
-        {
-            $restaurant_index[1] = $rand;
-            $choose_index++;
-        }
+        push @output, splice(@restaurant, $rand, 1);
+        $choose_index++;
     }
     my @showcase;
-    push @showcase, $plates[$plate_index[0]];
-    push @showcase, $restaurant[$restaurant_index[0]];
-    push @showcase, $restaurant[$restaurant_index[1]];
-    push @showcase, $plates[$plate_index[1]];
+    push @showcase, $output[0];
+    push @showcase, $output[2];
+    push @showcase, $output[3];
+    push @showcase, $output[1];
 
     my $text = Strehler::Element::Article::get_last_by_date('homepage');
     my %text_data = $text->get_ext_data(language);
