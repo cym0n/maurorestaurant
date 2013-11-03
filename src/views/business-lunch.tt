@@ -2,6 +2,13 @@
 <h1>Business Lunch</h1>
 <p class="business-claim">[% claim.text %]</p>
 
+[% IF antipasti.size %]
+<h2>[% translate.STARTERS %]</h2>
+[% FOREACH p = antipasti %]
+<p class="menuplate">[% p.title %]</p>
+[% END %]
+[% END %]
+
 [% IF primi.size %]
 <h2>[% translate.FIRSTCOURSES %]</h2>
 [% FOREACH p = primi %]
