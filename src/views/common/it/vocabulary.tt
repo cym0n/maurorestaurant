@@ -12,6 +12,8 @@
     FIRSTCOURSES = "Primi",
     MAINCOURSES_MEAT = "Secondi di carne",
     MAINCOURSES_FISH = "Secondi di pesce",
+    MAINCOURSES = "Secondi",
+    SIDES = "Contorni",
     DESSERTS = "Dolci"
 }
 %]

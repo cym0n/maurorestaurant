@@ -54,6 +54,22 @@ get '/menu' => sub
   }
   template "menu", { title => "Menu", language => language, %items }; 
 };
+get '/business-lunch' => sub
+{
+  my $text = Strehler::Element::Article::get_last_by_date('business lunch');
+  my %text_data = $text->get_ext_data(language);
+  my %items;
+  foreach my $cat ('antipasti', 'primi', 'secondi di carne', 'secondi di pesce', 'contorni')  
+  {
+    my $plates = Strehler::Element::Article::get_list({category => $cat, tag => 'business', 'entries_per_page' => -1});
+    my $tpltag = $cat;
+    $tpltag =~ s/ //g;
+    $items{$tpltag} = $plates->{'to_view'};
+  }
+  my @main = (@{$items{'secondidicarne'}}, @{$items{'secondidipesce'}});
+  $items{'secondi'} = \@main;    
+  template "business-lunch", { title => "Business Lunch", language => language, claim => \%text_data, %items }; 
+};
 
 
 

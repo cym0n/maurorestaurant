@@ -1,0 +1,24 @@
+[% PROCESS "common/$language/vocabulary.tt" %]
+<h1>Business Lunch</h1>
+<p class="business-claim">[% claim.text %]</p>
+
+[% IF primi.size %]
+<h2>[% translate.FIRSTCOURSES %]</h2>
+[% FOREACH p = primi %]
+<p class="menuplate">[% p.title %]</p>
+[% END %]
+[% END %]
+
+[% IF secondi.size %]
+<h2>[% translate.MAINCOURSES %]</h2>
+[% FOREACH p = secondi %]
+<p class="menuplate">[% p.title %]</p>
+[% END %]
+[% END %]
+
+[% IF contorni.size %]
+<h2>[% translate.SIDE %]</h2>
+[% FOREACH p = contorni %]
+<p class="menuplate">[% p.title %]</p>
+[% END %]
+[% END %]
