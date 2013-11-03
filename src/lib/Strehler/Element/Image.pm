@@ -134,12 +134,25 @@ sub get_list
     if(exists $args{'category_id'} && $args{'category_id'})
     {
         my $category = schema->resultset('Category')->find( { id => $args{'category_id'} } );
+        if(! $category)
+        {
+            return {'to_view' => [], 'last_page' => 1 };
+        }
         $rs = $category->images->search($search_criteria, { order_by => { '-' . $args{'order'} => $args{'order_by'} } , page => $default_page, rows => $args{'entries_per_page'} });
     }
     elsif(exists $args{'category'} && $args{'category'})
     {
-        my $category = schema->resultset('Category')->find( { category => $args{'category'} } );
-        $rs = $category->images->search($search_criteria, { order_by => { '-' . $args{'order'} => $args{'order_by'} } , page => $default_page, rows => $args{'entries_per_page'} });
+       my $category;
+       my $category_obj = Strehler::Element::Category::explode_name($args{'category'});
+       if(! $category_obj->exists())
+       {
+           return {'to_view' => [], 'last_page' => 1 };
+       }
+       else
+       {
+           $category = $category_obj->row;
+       }
+       $rs = $category->images->search($search_criteria, { order_by => { '-' . $args{'order'} => $args{'order_by'} } , page => $default_page, rows => $args{'entries_per_page'} });
     }
     else
     {
