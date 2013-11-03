@@ -24,7 +24,7 @@
 [% END %]
 
 [% IF contorni.size %]
-<h2>[% translate.SIDE %]</h2>
+<h2>[% translate.SIDES %]</h2>
 [% FOREACH p = contorni %]
 <p class="menuplate">[% p.title %]</p>
 [% END %]
