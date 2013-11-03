@@ -61,7 +61,7 @@ get '/business-lunch' => sub
   my %items;
   foreach my $cat ('antipasti', 'primi', 'secondi di carne', 'secondi di pesce', 'contorni')  
   {
-    my $plates = Strehler::Element::Article::get_list({category => $cat, tag => 'business', 'entries_per_page' => -1});
+    my $plates = Strehler::Element::Article::get_list({category => $cat, tag => 'business', 'entries_per_page' => -1, published => 1});
     my $tpltag = $cat;
     $tpltag =~ s/ //g;
     $items{$tpltag} = $plates->{'to_view'};
