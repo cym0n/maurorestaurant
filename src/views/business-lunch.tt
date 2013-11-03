@@ -1,6 +1,6 @@
 [% PROCESS "common/$language/vocabulary.tt" %]
 <h1>Business Lunch</h1>
-<p class="business-claim">[% claim.text %]</p>
+<div class="business-claim">[% claim.text %]</div>
 
 [% IF antipasti.size %]
 <h2>[% translate.STARTERS %]</h2>

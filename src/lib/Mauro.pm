@@ -2,6 +2,7 @@ package Mauro;
 
 use Dancer2;
 use Dancer2::Plugin::Multilang;
+use Text::Markdown 'markdown';
 use Data::Dumper;
 
 set layout => 'mauro';
@@ -36,6 +37,7 @@ get '/' => sub {
 
     my $text = Strehler::Element::Article::get_last_by_date('homepage');
     my %text_data = $text->get_ext_data(language);
+    $text_data{'text'} = markdown($text_data{'text'});
     template "index", { title => "Homepage", language => language, images => \@showcase, text => \%text_data };
 };
 get '/dove-siamo|/location' => sub 
@@ -58,6 +60,7 @@ get '/business-lunch' => sub
 {
   my $text = Strehler::Element::Article::get_last_by_date('business lunch');
   my %text_data = $text->get_ext_data(language);
+  $text_data{'text'} = markdown($text_data{'text'});
   my %items;
   foreach my $cat ('antipasti', 'primi', 'secondi di carne', 'secondi di pesce', 'contorni')  
   {
