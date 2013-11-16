@@ -89,6 +89,12 @@ sub get_ext_data
     $data{'publish_date'} = $self->publish_date();
     return %data;
 }
+sub get_tags
+{
+    my $self = shift;
+    my $tags = Strehler::Element::Tag::tags_to_string($self->get_attr('id'), 'article');
+    return $tags;
+}
 sub next_in_category_by_order
 {
     my $self = shift;
@@ -478,7 +484,10 @@ sub save_form
             $article_row->contents->create( { title => $title, text => $text, slug => $slug, language => $lan }) 
         }
     }
-    Strehler::Element::Tag::save_tags($form->param_value('tags'), $article_row->id, 'article');
+    if($form->param_value('tags'))
+    {
+        Strehler::Element::Tag::save_tags($form->param_value('tags'), $article_row->id, 'article');
+    }
     return $article_row->id;  
 }
 
