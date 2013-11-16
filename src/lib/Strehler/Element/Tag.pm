@@ -39,9 +39,9 @@ sub tags_to_string
     my $out = "";
     for(@tags)
     {
-        $out .= $_->tag . ", ";
+        $out .= $_->tag . ",";
     }
-    $out =~ s/, $//;
+    $out =~ s/,$//;
     return $out;
 }
 
@@ -68,7 +68,7 @@ sub save_tags
     my $item_type = shift;
     $string =~ s/( +)?,( +)?/,/g;
     my @tags = split(',', $string);
-    schema->resultset('Tag')->search({item_id => $item})->delete_all();
+    schema->resultset('Tag')->search({item_id => $item, item_type => $item_type})->delete_all();
     my %already;
     for(@tags)
     {
@@ -78,6 +78,99 @@ sub save_tags
             my $new_tag = schema->resultset('Tag')->create({tag => $_, item_id => $item, item_type => $item_type});
         }
     }
+}
+
+sub get_configured_tags
+{
+    my $category = shift;
+    my @types = ('article', 'image', 'both');
+    my $out;
+    foreach my $t (@types)
+    {
+        my @tags = schema->resultset('ConfiguredTag')->search({category_id => $category, item_type => $t});
+        my $string = '';
+        my $default = '';
+        for(@tags)
+        {
+            $string .= $_->tag;
+            $string .= ",";
+            if($_->default_tag == 1)
+            {
+                $default .= $_->tag;
+                $default .= ",";
+            }
+        }
+        $string =~ s/,$//;
+        $default =~ s/,$//;
+        if($string ne '')
+        {
+            $out->{$t} = $string;
+        }
+        else
+        {
+            $out->{$t} = undef;
+        }
+        $out->{'default-' . $t} = $default;
+    }
+    return $out;
+}
+sub get_configured_tags_for_template
+{
+    my $category = shift;
+    my $type = shift;
+    my @tags = schema->resultset('ConfiguredTag')->search({category_id => $category, item_type => 'both'});
+    if($#tags > -1)
+    {
+        return @tags;
+    }
+    else
+    {
+        @tags = schema->resultset('ConfiguredTag')->search({category_id => $category, item_type => $type});
+        return @tags;
+    }
+}
+
+sub save_configured_tags
+{
+    my $string = shift;
+    my $default_tags = shift;
+    my $category = shift;
+    my $type = shift;
+    $default_tags ||= '';
+    $string =~ s/( +)?,( +)?/,/g;
+    $default_tags =~ s/( +)?,( +)?/,/g;
+    my @tags = split(',', $string);
+    my @dtags = split(',', $default_tags);
+    my %already;
+    foreach my $t (@tags)
+    {
+        if(! $already{$t})
+        {
+            $already{$t} = 1;
+            my $default = 0;
+            if (grep {$_ eq $t} @dtags) {
+                $default = 1;
+            }
+            if($type eq 'i')
+            {
+                schema->resultset('ConfiguredTag')->create({tag => $t, category_id => $category, item_type => 'image', default_tag => $default});
+            }
+            elsif($type eq 'a')
+            {
+                schema->resultset('ConfiguredTag')->create({tag => $t, category_id => $category, item_type => 'article', default_tag => $default});
+            }
+            elsif($type eq 'b')
+            {
+                schema->resultset('ConfiguredTag')->create({tag => $t, category_id => $category, item_type => 'both', default_tag => $default});
+            }
+        }
+    }
+}
+
+sub clean_configured_tags
+{
+    my $category = shift;
+    schema->resultset('ConfiguredTag')->search({ category_id => $category })->delete_all();
 }
 
 

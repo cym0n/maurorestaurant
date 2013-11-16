@@ -89,6 +89,12 @@ sub get_ext_data
     $data{'publish_date'} = $self->publish_date();
     return %data;
 }
+sub get_tags
+{
+    my $self = shift;
+    my $tags = Strehler::Element::Tag::tags_to_string($self->get_attr('id'), 'article');
+    return $tags;
+}
 sub next_in_category_by_order
 {
     my $self = shift;
@@ -359,11 +365,24 @@ sub get_list
     if(exists $args{'category_id'} && $args{'category_id'})
     {
         my $category = schema->resultset('Category')->find( { id => $args{'category_id'} } );
+        if(! $category)
+        {
+            return {'to_view' => [], 'last_page' => 1 };
+        }
         $rs = $category->articles->search($search_criteria, { order_by => { '-' . $args{'order'} => $args{'order_by'} } , page => $default_page, rows => $args{'entries_per_page'} });
     }
     elsif(exists $args{'category'} && $args{'category'})
     {
-        my $category = schema->resultset('Category')->find( { category => $args{'category'} } );
+        my $category;
+        my $category_obj = Strehler::Element::Category::explode_name($args{'category'});
+        if(! $category_obj->exists())
+        {
+            return {'to_view' => [], 'last_page' => 1 };
+        }
+        else
+        {
+            $category = $category_obj->row;
+        }
         $rs = $category->articles->search($search_criteria, { order_by => { '-' . $args{'order'} => $args{'order_by'} } , page => $default_page, rows => $args{'entries_per_page'} });
     }
     else
@@ -465,7 +484,10 @@ sub save_form
             $article_row->contents->create( { title => $title, text => $text, slug => $slug, language => $lan }) 
         }
     }
-    Strehler::Element::Tag::save_tags($form->param_value('tags'), $article_row->id, 'article');
+    if($form->param_value('tags'))
+    {
+        Strehler::Element::Tag::save_tags($form->param_value('tags'), $article_row->id, 'article');
+    }
     return $article_row->id;  
 }
 
