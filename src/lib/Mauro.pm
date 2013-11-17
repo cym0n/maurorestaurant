@@ -37,12 +37,25 @@ get '/' => sub {
 
     my $text = Strehler::Element::Article::get_last_by_date('homepage');
     my %text_data = $text->get_ext_data(language);
-    $text_data{'text'} = markdown($text_data{'text'});
-    template "index", { title => "Homepage", language => language, images => \@showcase, text => \%text_data };
+    if($text_data{'text'})
+    {
+        $text_data{'text'} = markdown($text_data{'text'});
+    }
+
+    my %page_description = ( it => 'Mauro Restaurant, ristorante a Milano, cucina tipica milanese con prodotti di stagione',
+                             en => 'Mauro Restaurant, restaurant in Milan, traditional seasonal cooking' );
+    my $lang = language;
+
+    template "index", { title => "Homepage", page_description => $page_description{$lang}, language => $lang, 
+                        images => \@showcase, text => \%text_data };
 };
 get '/dove-siamo|/location' => sub 
 {
-  template "dove-siamo", { title => "Dove siamo", language => language }; 
+    my %page_description = ( it => 'Guarda sulla mappa la posizione di Mauro Restaurant',
+                             en => 'Check on the map the Mauro Restaurant location' );
+    my $lang = language;
+
+    template "dove-siamo", { title => "Dove siamo", page_description => $page_description{$lang}, language => language }; 
 };
 get '/menu' => sub 
 {
@@ -54,7 +67,7 @@ get '/menu' => sub
     $tpltag =~ s/ //g;
     $items{$tpltag} = $plates->{'to_view'};
   }
-  template "menu", { title => "Menu", language => language, %items }; 
+  template "menu", { title => "Menu", page_description => "Sfoglia il menu di Mauro Restaurant, aggiornato in tempo reale", language => language, %items }; 
 };
 get '/business-lunch' => sub
 {
@@ -73,7 +86,7 @@ get '/business-lunch' => sub
   }
   my @main = (@{$items{'secondidicarne'}}, @{$items{'secondidipesce'}});
   $items{'secondi'} = \@main;    
-  template "business-lunch", { title => "Business Lunch", language => language, claim => \%text_data, %items }; 
+  template "business-lunch", { title => "Business Lunch", page_description => "Approfitta a mezzogiorno dell'offerta Business Lunch, per provare i piatti del ristorante", language => language, claim => \%text_data, %items }; 
 };
 
 

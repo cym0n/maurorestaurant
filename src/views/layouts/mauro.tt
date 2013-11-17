@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head prefix="og: http://ogp.me/ns#">
     <title>Mauro Restaurant - [% title %]</title>
+    <meta name="description" content="[% page_description %]" />
     <link rel="stylesheet" href="[% request.uri_base %]/css/main.css" />
     <meta property="og:url" content="http://www.maurorestaurant.it" />
     <meta property="og:type" content="website"/>
