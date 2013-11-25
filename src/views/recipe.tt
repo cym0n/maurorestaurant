@@ -1,0 +1,11 @@
+<h1>[% recipe.title %]</h1>
+<div id="recipe">
+[% IF recipe.image %]
+<div class="recipe-image">
+    <img src="[% recipe.image %]" />
+</div>
+[% END %]
+<div class="recipe-text">
+    [% recipe.text%]
+</div>
+</div>
