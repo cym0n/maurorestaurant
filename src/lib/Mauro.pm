@@ -62,13 +62,45 @@ get '/menu' => sub
   my %items;
   foreach my $cat ('antipasti', 'primi', 'secondi di carne', 'secondi di pesce', 'desserts')  
   {
-    my $plates = Strehler::Element::Article::get_list({category => 'menu/'.$cat, 'entries_per_page' => -1, published => 1});
+    my $plates = Strehler::Element::Article::get_list({category => 'menu/'.$cat, 'entries_per_page' => -1, published => 1, ext => 1});
     my $tpltag = $cat;
     $tpltag =~ s/ //g;
     $items{$tpltag} = $plates->{'to_view'};
   }
   template "menu", { title => "Menu", page_description => "Sfoglia il menu di Mauro Restaurant, aggiornato in tempo reale", language => language, %items }; 
 };
+
+get '/menu/:slug' => sub
+{
+    my $slug = params->{slug};
+    my $recipe = Strehler::Element::Article::get_by_slug($slug, language);
+    if(! $recipe || ! $recipe->exists())
+    {
+        send_error("Capitolo inesistente", 404);
+        return;
+    }
+    my $cat = $recipe->get_attr('category');
+    my $recipe_category = Strehler::Element::Category->new($cat);
+    my $recipe_category_parent = Strehler::Element::Category->new($recipe_category->get_attr('parent'));
+    if($recipe_category_parent->get_attr('category') ne 'menu')
+    {
+        send_error("Capitolo inesistente", 404);
+        return;
+    }
+    else
+    {
+        my %recipe_data = $recipe->get_ext_data(language);
+        $recipe_data{'text'} = markdown($recipe_data{'text'});
+        template "recipe", { title => $recipe_data{'title'}, page_description => 'Uno dei piatti del Mauro Restaurant', canonical => "http:/www.maurorestaurant.it/menu/" . $recipe_data{'slug'}, language => language,
+                             recipe => \%recipe_data };
+    } 
+
+
+
+
+};
+
+
 get '/business-lunch' => sub
 {
   my $text = Strehler::Element::Article::get_last_by_date('business lunch');

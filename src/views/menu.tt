@@ -2,21 +2,24 @@
 <h1>Menu</h1>
 <h2>[% translate.STARTERS %]</h2>
 [% FOREACH p = antipasti %]
-<p class="menuplate">[% p.title %]</p>
+<div class="menuplate">
+<p>[% p.title %][% IF p.text %]<a href="/menu/[% p.slug %]"><img class="torecipe" src="/images/dark-eye_318-10778.png" /></a>[% END %]</p>
+</div>
 [% END %]
 <h2>[% translate.FIRSTCOURSES %]</h2>
 [% FOREACH p = primi %]
-<p class="menuplate">[% p.title %]</p>
+<p class="menuplate">[% p.title %] [% IF p.text %]<a href="/menu/[% p.slug %]"><img class="torecipe" src="/images/dark-eye_318-10778.png" /></a>[% END %]</p>
 [% END %]
 <h2>[% translate.MAINCOURSES_MEAT %]</h2>
 [% FOREACH p = secondidicarne %]
-<p class="menuplate">[% p.title %]</p>
+<p class="menuplate">[% p.title %] [% IF p.text %]<a href="/menu/[% p.slug %]"><img class="torecipe" src="/images/dark-eye_318-10778.png" /></a>[% END %]</p>
 [% END %]
 <h2>[% translate.MAINCOURSES_FISH %]</h2>
 [% FOREACH p = secondidipesce %]
-<p class="menuplate">[% p.title %]</p>
+<p class="menuplate">[% p.title %] [% IF p.text %]<a href="/menu/[% p.slug %]"><img class="torecipe" src="/images/dark-eye_318-10778.png" /></a>[% END %]</p>
 [% END %]
 <h2>[% translate.DESSERTS %]</h2>
 [% FOREACH p = desserts %]
-<p class="menuplate">[% p.title %]</p>
+[% p.text %]
+<p class="menuplate">[% p.title %] [% IF p.text %]<a href="/menu/[% p.slug %]"><img class="torecipe" src="/images/dark-eye_318-10778.png" /></a>[% END %]</p>
 [% END %]

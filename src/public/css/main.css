@@ -187,13 +187,38 @@ h2
 }
 .menuplate
 {
+    min-width: 20px;
     margin-left: 40px;
     color: #fff;
     font-size: 1.2em;
 }
+.menuplate img
+{
+    margin-left: 9px;
+    vertical-align: middle;
+}
+
 .business-claim
 {
     color: #fff;
     width: 550px;
+}
+#recipe
+{
+    margin-top: 55px;
+}
+
+.recipe-image
+{
+    text-align: center
+}
+.recipe-image img
+{
+    max-height: 400px;
+}
+.recipe-text
+{
+    color: #fff;
+    font-size: 1.8em;
 }
 
