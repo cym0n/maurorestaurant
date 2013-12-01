@@ -91,7 +91,7 @@ get '/menu/:slug' => sub
     {
         my %recipe_data = $recipe->get_ext_data(language);
         $recipe_data{'text'} = markdown($recipe_data{'text'});
-        template "recipe", { title => $recipe_data{'title'}, page_description => 'Uno dei piatti del Mauro Restaurant', canonical => "http:/www.maurorestaurant.it/menu/" . $recipe_data{'slug'}, language => language,
+        template "recipe", { htmlid => 'recipe', title => $recipe_data{'title'}, page_description => 'Uno dei piatti del Mauro Restaurant', canonical => "http:/www.maurorestaurant.it/menu/" . $recipe_data{'slug'}, language => language,
                              recipe => \%recipe_data };
     } 
 

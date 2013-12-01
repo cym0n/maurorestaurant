@@ -51,7 +51,7 @@
                 </div>
                 [% INSERT "common/$language/sidebar.tt" %] 
             </div>
-            <div class="content">
+            <div [% IF htmlid %]id=[% htmlid %][% END %] class="content">
                 [% content %]
             </div>
         </div>

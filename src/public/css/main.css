@@ -203,23 +203,32 @@ h2
     color: #fff;
     width: 550px;
 }
-#recipe
+#recipe h1
+{
+    width: 600px;
+    line-height: 1em;
+}
+#recipe .inner-content
 {
     margin-top: 55px;
 }
 
-.recipe-image
+#recipe .imagebox
 {
     text-align: center
 }
-.recipe-image img
+#recipe .imagebox img
 {
     max-height: 400px;
 }
-.recipe-text
+#recipe .textbox
 {
     color: #fff;
     font-size: 1.8em;
     width: 600px;
+}
+#recipe .backbox
+{
+    font-size: 1.2em;
 }
 

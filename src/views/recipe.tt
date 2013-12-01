@@ -1,11 +1,14 @@
 <h1>[% recipe.title %]</h1>
-<div id="recipe">
+<div class="inner-box">
 [% IF recipe.image %]
-<div class="recipe-image">
+<div class="imagebox">
     <img src="[% recipe.image %]" />
 </div>
 [% END %]
-<div class="recipe-text">
+<div class="textbox">
     [% recipe.text%]
 </div>
+</div>
+<div class="backbox">
+    <a href="/menu">&lt;&lt; Al menu</a>
 </div>
