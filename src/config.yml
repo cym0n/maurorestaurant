@@ -41,9 +41,7 @@ plugins:
     languages: ['it', 'en'] 
     default: 'en' 
 
-admin_secured: 1
-site_closed: 1
-
-languages: ['it', 'en']
-default_language: 'it'
-
+Strehler:
+    admin_secured: 1
+    languages: ['it', 'en']
+    default_language: 'it'
