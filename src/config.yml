@@ -45,3 +45,6 @@ Strehler:
     admin_secured: 1
     languages: ['it', 'en']
     default_language: 'it'
+    extra_menu:
+        - ['vini', 'wine']
+

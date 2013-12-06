@@ -17,4 +17,11 @@ __PACKAGE__->load_namespaces;
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
+
+Mauro::MauroDB::Result::Category->has_many(
+  "wines",
+  "Mauro::MauroDB::Result::Wine",
+  { "foreign.category" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
 1;

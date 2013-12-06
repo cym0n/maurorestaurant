@@ -5,5 +5,6 @@ use Dancer2;
 
 use Strehler::Admin;
 use Mauro;
+use Mauro::Admin;
 
 dance;
