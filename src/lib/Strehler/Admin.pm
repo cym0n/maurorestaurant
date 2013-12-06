@@ -4,6 +4,7 @@ use Digest::MD5 "md5_hex";
 use Dancer2;
 use Dancer2::Plugin::DBIC;
 use Dancer2::Plugin::Ajax;
+use Dancer2::Plugin::Strehler;
 use HTML::FormFu;
 use HTML::FormFu::Element::Block;
 use Data::Dumper;
@@ -12,42 +13,7 @@ use Strehler::Element::Image;
 use Strehler::Element::Article;
 use Strehler::Element::Category;
 
-prefix '/admin';
-set layout => 'admin';
-
-hook before => sub {
-    return if(! config->{admin_secured});
-    if((! session 'user') && request->path_info ne dancer_app->prefix . '/login')
-    {
-        session redir_url => request->path_info;
-        my $redir = redirect(dancer_app->prefix . '/login');
-        context->response->is_halted(0);
-        return $redir;
-        #redirect dancer_app->prefix . '/login';
-    }
-};
-
-hook before_template_render => sub {
-        my $tokens = shift;
-        my $match_string = "^" . dancer_app->prefix . "\/(.*?)\/";
-        my $match_regexp = qr/$match_string/;
-        my $path = request->path_info();
-        my $tab;
-        if($path =~ $match_regexp)
-        {
-            $tab = $1;
-        }
-        else
-        {
-            $tab = 'home';
-        }
-        my %navbar;
-        $navbar{$tab} = 'active';
-        $tokens->{'navbar'} = \%navbar;
-    };
-
-my @languages = @{config->{languages}};
-
+my @languages = @{config->{Strehler}->{languages}};
 
 ##### Homepage #####
 
@@ -75,14 +41,12 @@ any '/login' => sub {
                 my $redir = redirect(session 'redir_url');
                 context->response->is_halted(0);
                 return $redir;
-                #redirect session 'redir_url';
             }
             else
             {
                 my $redir = redirect(dancer_app->prefix . '/');
                 context->response->is_halted(0);
                 return $redir;
-                #redirect dancer_app->prefix . '/';
             }
         }
         else
@@ -528,7 +492,7 @@ sub form_article
     my $form = HTML::FormFu->new;
     $form->load_config_file( 'forms/admin/article.yml' );
     $form = add_multilang_fields($form, \@languages, 'forms/admin/article_multilang.yml'); 
-    my $default_language = config->{default_language};
+    my $default_language = config->{Strehler}->{default_language};
     $form->constraint({ name => 'title_' . $default_language, type => 'Required' }); 
     #$form->constraint({ name => 'text_' . $default_language, type => 'Required' }); 
     my $image = $form->get_element({ name => 'image'});
