@@ -67,19 +67,27 @@ any '/wine/add' => sub
     if($form->submitted_and_valid)
     {
         Mauro::Element::Wine::save_form(undef, $form);
-        redirect dancer_app->prefix . '/article/list';
+        redirect dancer_app->prefix . '/wine/list';
     }
     my $fake_tags = $form->get_element({ name => 'tags'});
     Strehler::Admin::bootstrap_divider($form);
     $form->remove_element($fake_tags) if($fake_tags);
     template "myadmin/wine", { form => $form->render() }
 };
+get '/wine/edit/:id' => sub {
+    my $id = params->{id};
+    my $wine = Mauro::Element::Wine->new($id);
+    my $form_data = $wine->get_form_data();
+    my $form = form_wine($form_data->{'category'});
+    $form->default_values($form_data);
+    $form = Strehler::Admin::bootstrap_divider($form);
+    template "myadmin/wine", { id => $id, form => $form->render(), }
+};
 
 
 
 sub form_wine
 {
-    my $action = shift;
     my $has_sub = shift;
     my $form = HTML::FormFu->new;
     $form->load_config_file( 'forms/myadmin/wine.yml' );

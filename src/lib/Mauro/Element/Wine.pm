@@ -75,35 +75,62 @@ sub unpublish
     $self->row->update();
 }
 
+sub save_form
+{
+    my $id = shift;
+    my $form = shift;
+    
+    my $wine_row;
+    my $category = undef;
+    if($form->param_value('subcategory'))
+    {
+        $category = $form->param_value('subcategory');
+    }
+    elsif($form->param_value('category'))
+    {
+        $category = $form->param_value('category');
+    }
+    my $wine_data ={ name => $form->param_value('name'), year => $form->param_value('year'), region => $form->param_value('region'), winery => $form->param_value('winery') ,category => $category};
+    if($id)
+    {
+        $wine_row = schema->resultset('Wine')->find($id);
+        $wine_row->update($wine_data);
+
+    }
+    else
+    {
+        $wine_row = schema->resultset('Wine')->create($wine_data);
+    }
+    if($form->param_value('tags'))
+    {
+        Strehler::Meta::Tag::save_tags($form->param_value('tags'), $wine_row->id, 'wine');
+    }
+    return $wine_row->id;  
+}
+
+
 #
-#sub get_form_data
-#{
-#    my $self = shift;
-#    my $article_row = $self->row;
-#    my @contents = $article_row->contents;
-#    my $data;
-#    if($article_row->category->parent_category)
-#    {
-#        $data->{'category'} = $article_row->category->parent_category->id;
-#        $data->{'subcategory'} = $article_row->category->id;
-#    }
-#    else
-#    {
-#       $data->{'category'} = $article_row->category->id;
-#    }
-#    $data->{'image'} = $article_row->image;
-#    $data->{'order'} = $article_row->display_order;
-#    $data->{'publish_date'} = $article_row->publish_date;
-#    for(@contents)
-#    {
-#        my $d = $_;
-#        my $lan = $d->language;
-#        $data->{'title_' . $lan} = $d->title;
-#        $data->{'text_' . $lan} = $d->text;
-#    }
-#    $data->{'tags'} = Strehler::Meta::Tag::tags_to_string($self->get_attr('id'), 'article');
-#    return $data;
-#}
+sub get_form_data
+{
+    my $self = shift;
+    my $wine_row = $self->row;
+    my $data;
+    if($wine_row->category->parent_category)
+    {
+        $data->{'category'} = $wine_row->category->parent_category->id;
+        $data->{'subcategory'} = $wine_row->category->id;
+    }
+    else
+    {
+       $data->{'category'} = $wine_row->category->id;
+    }
+    $data->{'name'} = $wine_row->name;
+    $data->{'year'} = $wine_row->year;
+    $data->{'region'} = $wine_row->region;
+    $data->{'winery'} = $wine_row->winery;
+    $data->{'tags'} = Strehler::Meta::Tag::tags_to_string($self->get_attr('id'), 'wine');
+    return $data;
+}
 #sub main_title
 #{
 #    my $self = shift;
