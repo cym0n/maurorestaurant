@@ -70,6 +70,7 @@ any '/wine/add' => sub
         redirect dancer_app->prefix . '/article/list';
     }
     my $fake_tags = $form->get_element({ name => 'tags'});
+    Strehler::Admin::bootstrap_divider($form);
     $form->remove_element($fake_tags) if($fake_tags);
     template "myadmin/wine", { form => $form->render() }
 };
