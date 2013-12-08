@@ -10,8 +10,8 @@ set layout => 'mauro';
 get '/' => sub {
     my @plate_index;
     my @restaurant_index;
-    my $restaurant_images = Strehler::Element::Image::get_list({category => 'ristorante', tag => "showcase", 'entries_per_page' => -1});
-    my $plates_images = Strehler::Element::Image::get_list({category => 'piatti', tag => "showcase", 'entries_per_page' => -1});
+    my $restaurant_images = Strehler::Element::Image->get_list({category => 'ristorante', tag => "showcase", 'entries_per_page' => -1});
+    my $plates_images = Strehler::Element::Image->get_list({category => 'piatti', tag => "showcase", 'entries_per_page' => -1});
     my @restaurant = @{$restaurant_images->{'to_view'}};
     my @plates = @{$plates_images->{'to_view'}};
     my $choose_index = 0;
@@ -35,7 +35,7 @@ get '/' => sub {
     push @showcase, $output[3];
     push @showcase, $output[1];
 
-    my $text = Strehler::Element::Article::get_last_by_date('homepage');
+    my $text = Strehler::Element::Article->get_last_by_date('homepage');
     my %text_data = $text->get_ext_data(language);
     if($text_data{'text'})
     {
@@ -62,7 +62,7 @@ get '/menu' => sub
   my %items;
   foreach my $cat ('antipasti', 'primi', 'secondi di carne', 'secondi di pesce', 'desserts')  
   {
-    my $plates = Strehler::Element::Article::get_list({category => 'menu/'.$cat, 'entries_per_page' => -1, published => 1, ext => 1});
+    my $plates = Strehler::Element::Article->get_list({category => 'menu/'.$cat, 'entries_per_page' => -1, published => 1, ext => 1});
     my $tpltag = $cat;
     $tpltag =~ s/ //g;
     $items{$tpltag} = $plates->{'to_view'};
@@ -73,15 +73,15 @@ get '/menu' => sub
 get '/menu/:slug' => sub
 {
     my $slug = params->{slug};
-    my $recipe = Strehler::Element::Article::get_by_slug($slug, language);
+    my $recipe = Strehler::Element::Article->get_by_slug($slug, language);
     if(! $recipe || ! $recipe->exists())
     {
         send_error("Capitolo inesistente", 404);
         return;
     }
     my $cat = $recipe->get_attr('category');
-    my $recipe_category = Strehler::Element::Category->new($cat);
-    my $recipe_category_parent = Strehler::Element::Category->new($recipe_category->get_attr('parent'));
+    my $recipe_category = Strehler::Meta::Category->new($cat);
+    my $recipe_category_parent = Strehler::Meta::Category->new($recipe_category->get_attr('parent'));
     if($recipe_category_parent->get_attr('category') ne 'menu')
     {
         send_error("Capitolo inesistente", 404);
@@ -103,14 +103,14 @@ get '/menu/:slug' => sub
 
 get '/business-lunch' => sub
 {
-  my $text = Strehler::Element::Article::get_last_by_date('business lunch');
+  my $text = Strehler::Element::Article->get_last_by_date('business lunch');
   my %text_data = $text->get_ext_data(language);
   $text_data{'text'} = markdown($text_data{'text'});
   my %items;
   foreach my $cat ('antipasti', 'primi', 'secondi di carne', 'secondi di pesce', 'contorni')  
   {
-    my $plates = Strehler::Element::Article::get_list({category => 'menu/'. $cat, tag => 'business', 'entries_per_page' => -1, published => 1});
-    my $plates_only_bus = Strehler::Element::Article::get_list({category => 'businessmenu/'. $cat, 'entries_per_page' => -1, published => 1});
+    my $plates = Strehler::Element::Article->get_list({category => 'menu/'. $cat, tag => 'business', 'entries_per_page' => -1, published => 1});
+    my $plates_only_bus = Strehler::Element::Article->get_list({category => 'businessmenu/'. $cat, 'entries_per_page' => -1, published => 1});
     my @elements = (@{$plates->{'to_view'}}, @{$plates_only_bus->{'to_view'}});
     my $tpltag = $cat;
     $tpltag =~ s/ //g;
