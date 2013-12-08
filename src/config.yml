@@ -46,5 +46,5 @@ Strehler:
     languages: ['it', 'en']
     default_language: 'it'
     extra_menu:
-        - ['vini', 'wine']
+        - ['Vini', 'wine']
 

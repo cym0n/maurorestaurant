@@ -1,0 +1,46 @@
+[% PROCESS admin/blocks/listblocks.tt %]
+<div class="span12">
+    <h1>Administrator panel - Vini</h1>
+</div>
+<div class="content imagelist span12">
+        [% INCLUDE categoryfilter %]
+        [% INCLUDE pager %]
+        <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Anno</th>
+                <th>Regione</th>
+                <th>Cantina</th>
+                <th>Categoria</th>
+            </tr>
+        </thead>
+        <tbody>
+            [% FOREACH el IN wines %]
+            <tr>
+                <td>[% el.id %]</td>
+                <td>[% el.name %]</td>
+                <td>[% el.year %]</td>
+                <td>[% el.region %]</td>
+                <td>[% el.winery %]</td>
+                <td>[% el.category %]</td>
+                <td>
+                    <div class="btn-group span2 offset1">
+                        <a href="/admin/wine/edit/[% el.id %]" class="btn">Edit</a>
+                        <a href="/admin/wine/delete/[% el.id %]" class="btn">Delete</a>
+                        [% IF el.published == 1 %]
+                            <a href="/admin/wine/turnoff/[% el.id %]" class="btn">Offline</a>
+                        [% ELSE %]
+                            <a href="/admin/wine/turnon/[% el.id %]" class="btn">Online</a>
+                        [% END %]
+                    </div>
+                </td>
+            </tr>
+            [% END %]
+        </tbody>
+        </table>
+        [% INCLUDE pager %]
+</div>
+[% INCLUDE filterscripts %]
+

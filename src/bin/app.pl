@@ -4,7 +4,7 @@ use Dancer2;
 #use dagolden;
 
 use Strehler::Admin;
-use Mauro;
 use Mauro::Admin;
+use Mauro;
 
 dance;
