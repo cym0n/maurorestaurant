@@ -2,6 +2,7 @@ package Mauro::Admin;
 
 use Dancer2;
 use Dancer2::Plugin::Strehler;
+use Strehler::Admin;
 use Mauro::Element::Wine;
 use Data::Dumper;
 
@@ -57,5 +58,35 @@ get '/wine/turnoff/:id' => sub
     $article->unpublish();
     redirect dancer_app->prefix . '/wine/list';
 };
+any '/wine/add' => sub
+{
+    my $form = form_wine(); 
+    my $params_hashref = params;
+    $form = Strehler::Admin::tags_for_form($form, $params_hashref);
+    $form->process($params_hashref);
+    if($form->submitted_and_valid)
+    {
+        Mauro::Element::Wine::save_form(undef, $form);
+        redirect dancer_app->prefix . '/article/list';
+    }
+    my $fake_tags = $form->get_element({ name => 'tags'});
+    $form->remove_element($fake_tags) if($fake_tags);
+    template "myadmin/wine", { form => $form->render() }
+};
+
+
+
+sub form_wine
+{
+    my $action = shift;
+    my $has_sub = shift;
+    my $form = HTML::FormFu->new;
+    $form->load_config_file( 'forms/myadmin/wine.yml' );
+    my $category = $form->get_element({ name => 'category'});
+    $category->options(Strehler::Meta::Category::make_select());
+    my $subcategory = $form->get_element({ name => 'subcategory'});
+    $subcategory->options(Strehler::Meta::Category::make_select($has_sub));
+    return $form;
+}
 
 1;

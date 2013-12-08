@@ -1,0 +1,40 @@
+attributes:
+    class: well 
+elements:
+    - type: Select
+      id: category_selector
+      name: category
+      label: categoria
+    - type: Select
+      name: subcategory
+      label: sottocategoria
+      id: subcat
+    - type: Block
+      tag: div
+      id: tags-place
+      attributes:
+        class: text label
+    - name: name
+      label: Nome
+      attributes: 
+        class: span8
+    - name: year
+      label: Anno
+      attributes: 
+        class: span8
+    - name: region
+      label: Regione
+      attributes: 
+        class: span8
+    - name: winery
+      label: Cantina
+      attributes: 
+        class: span8
+    - name: save
+      type: Block
+      tag: button
+      content: Submit
+      attributes:
+        type: submit
+        class: btn btn-primary
+  
