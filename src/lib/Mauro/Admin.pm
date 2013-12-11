@@ -83,6 +83,21 @@ get '/wine/edit/:id' => sub {
     $form = Strehler::Admin::bootstrap_divider($form);
     template "myadmin/wine", { id => $id, form => $form->render(), }
 };
+post '/wine/edit/:id' => sub
+{
+    my $form = form_wine();
+    my $id = params->{id};
+    my $params_hashref = params;
+    $form = Strehler::Admin::tags_for_form($form, $params_hashref);
+    $form->process($params_hashref);
+    if($form->submitted_and_valid)
+    {
+        Mauro::Element::Wine::save_form($id, $form);
+        redirect dancer_app->prefix . '/wine/list';
+    }
+    template "myadmin/wine", { form => $form->render() }
+};
+
 
 
 

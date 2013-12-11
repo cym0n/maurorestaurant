@@ -34,14 +34,14 @@ sub item_type
 {
     return "wine";
 }
+sub multilang_children
+{
+    return "no-children";
+}
 
 sub ORMObj
 {
     return "Wine";
-}
-sub multilang_children
-{
-    return undef;
 }
 sub get_basic_data
 {
@@ -90,7 +90,7 @@ sub save_form
     {
         $category = $form->param_value('category');
     }
-    my $wine_data ={ name => $form->param_value('name'), year => $form->param_value('year'), region => $form->param_value('region'), winery => $form->param_value('winery') ,category => $category};
+    my $wine_data ={ name => $form->param_value('name'), year => $form->param_value('year'), region => $form->param_value('region'), winery => $form->param_value('winery'), category => $category};
     if($id)
     {
         $wine_row = schema->resultset('Wine')->find($id);
@@ -131,112 +131,10 @@ sub get_form_data
     $data->{'tags'} = Strehler::Meta::Tag::tags_to_string($self->get_attr('id'), 'wine');
     return $data;
 }
-#sub main_title
-#{
-#    my $self = shift;
-#    my @contents = $self->row->contents->search({ language => config->{Strehler}->{default_language} });
-#    if($contents[0])
-#    {
-#        return $contents[0]->title;
-#    }
-#    else
-#    {
-#        #Should not be possible
-#        return "*** no title ***";
-#    }
-#
-#}
-#sub publish
-#{
-#    my $self = shift;
-#    $self->row->published(1);
-#    $self->row->update();
-#}
-#sub unpublish
-#{
-#    my $self = shift;
-#    $self->row->published(0);
-#    $self->row->update();
-#}
-#
-##Ad hoc accessor to return the DateTime object
-#sub publish_date
-#{
-#    my $self = shift;
-#    return $self->row->publish_date;
-#}
-#
-#
-#sub save_form
-#{
-#    my $id = shift;
-#    my $form = shift;
-#    
-#    my $article_row;
-#    my $order;
-#    my $category = undef;
-#    if($form->param_value('subcategory'))
-#    {
-#        $category = $form->param_value('subcategory');
-#    }
-#    elsif($form->param_value('category'))
-#    {
-#        $category = $form->param_value('category');
-#    }
-#    if($category)
-#    {
-#        $order = $form->param_value('order');
-#    }
-#    else
-#    {
-#        $order = undef;
-#    }
-#    my $article_data ={ image => $form->param_value('image'), category => $category, display_order => $order, publish_date => $form->param_value('publish_date') };
-#    if($id)
-#    {
-#        $article_row = schema->resultset('Article')->find($id);
-#        $article_row->update($article_data);
-#        $article_row->contents->delete_all();
-#    }
-#    else
-#    {
-#        $article_row = schema->resultset('Article')->create($article_data);
-#    }
-#    my @languages = @{config->{Strehler}->{languages}};
-#    for(@languages)
-#    {
-#        my $lan = $_;
-#        my $title;
-#        my $text;
-#        if($form->param_value('title_' . $lan) =~ /^ *$/)
-#        {
-#            $title = undef;
-#        }
-#        else
-#        {
-#            $title = $form->param_value('title_' . $lan);
-#        }
-#        if($form->param_value('text_' . $lan) =~ /^ *$/)
-#        {
-#            $text = undef;
-#        }
-#        else
-#        {
-#            $text = $form->param_value('text_' . $lan);
-#        }
-#        if($title)
-#        {
-#            my $slug = $article_row->id . '-' . Strehler::Helpers::slugify($form->param_value('title_' . $lan));
-#            $article_row->contents->create( { title => $title, text => $text, slug => $slug, language => $lan }) 
-#        }
-#    }
-#    if($form->param_value('tags'))
-#    {
-#        Strehler::Meta::Tag::save_tags($form->param_value('tags'), $article_row->id, 'article');
-#    }
-#    return $article_row->id;  
-#}
-#
-#
+sub main_title
+{
+    my $self = shift;
+    return $self->get_attr('name');
+}
 
 1;

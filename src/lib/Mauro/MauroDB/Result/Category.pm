@@ -115,5 +115,13 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+__PACKAGE__->has_many(
+  "wines",
+  "Mauro::MauroDB::Result::Wine",
+  { "foreign.category" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
 
 1;

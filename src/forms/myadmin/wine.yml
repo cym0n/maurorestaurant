@@ -5,6 +5,9 @@ elements:
       id: category_selector
       name: category
       label: categoria
+      constraints:
+        type: Required
+        message: 'Categoria necessaria<br />'
     - type: Select
       name: subcategory
       label: sottocategoria
@@ -18,6 +21,9 @@ elements:
       label: Nome
       attributes: 
         class: span8
+      constraints:
+        type: Required
+        message: 'Nome necessario<br />'
     - name: year
       label: Anno
       attributes: 

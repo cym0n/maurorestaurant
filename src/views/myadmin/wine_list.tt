@@ -14,6 +14,7 @@
                 <th>Regione</th>
                 <th>Cantina</th>
                 <th>Categoria</th>
+                <th>Status</th>
             </tr>
         </thead>
         <tbody>
@@ -25,6 +26,13 @@
                 <td>[% el.region %]</td>
                 <td>[% el.winery %]</td>
                 <td>[% el.category %]</td>
+                 <td>
+                [% IF el.published == 1 %]
+                    <span class="inlist-icon icon-large icon-ok"></span>
+                [% ELSE %]
+                    <span class="inlist-icon icon-large icon-remove"></span>
+                [% END %]
+                </td>
                 <td>
                     <div class="btn-group span2 offset1">
                         <a href="/admin/wine/edit/[% el.id %]" class="btn">Edit</a>
