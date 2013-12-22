@@ -121,6 +121,11 @@ get '/business-lunch' => sub
   template "business-lunch", { title => "Business Lunch", page_description => "Approfitta a mezzogiorno dell'offerta Business Lunch, per provare i piatti del ristorante", language => language, claim => \%text_data, %items }; 
 };
 
+get '/vini/vini-rossi' => sub
+{
+    template "wines-list", { wines_type => "Vini rossi", language => language };
+};
+
 
 
 1;
