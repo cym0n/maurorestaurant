@@ -236,4 +236,18 @@ h2
 {
     font-size: 1.2em;
 }
+.wine
+{
+    font-size: 1.2em;
+    color: #fff;
+    margin-bottom: 10px;
+}
+.wine .name
+{
+    font-size: 1.4em;
+}
+.wine .data
+{
+    margin-left: 10px;
+}
 

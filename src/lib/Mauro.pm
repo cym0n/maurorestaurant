@@ -123,7 +123,8 @@ get '/business-lunch' => sub
 
 get '/vini/vini-rossi' => sub
 {
-    template "wines-list", { wines_type => "Vini rossi", language => language };
+    my $wines = Mauro::Element::Wine->get_list({category => 'vini rossi', 'entries_per_page' => -1, published => 1});
+    template "wines-list", { wines_type => "Vini rossi", language => language, wines => $wines->{to_view} };
 };
 
 

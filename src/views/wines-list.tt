@@ -1,8 +1,8 @@
 <h1>[% wines_type %]</h1>
-<table style="color:#fff;font-size: 25px">
-    <tr><th>Nome</th><th>Anno</th><th>Regione</th><th>Cantina</th></tr>
-    <tr><td>Valpolicella</td><td>2001</td><td>Veneto</td><td>Sarchiaponi</td></tr>
-    <tr><td>Valpolicella</td><td>2001</td><td>Veneto</td><td>Sarchiaponi</td></tr>
-    <tr><td>Valpolicella</td><td>2001</td><td>Veneto</td><td>Sarchiaponi</td></tr>
-    <tr><td>Valpolicella</td><td>2001</td><td>Veneto</td><td>Sarchiaponi</td></tr>
-</table>
+[% FOREACH w = wines %]
+<div class="wine">
+    <div class="name">[% w.name %]</div>
+    <div class="data">[% w.region %], [% w.year %]</div> 
+    <div class="data">Cantina: [% w.winery %]</div>
+</div>
+[% END %]
