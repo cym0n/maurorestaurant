@@ -78,32 +78,23 @@ sub save_form
 }
 
 
-#
-sub get_form_data
-{
-    my $self = shift;
-    my $wine_row = $self->row;
-    my $data;
-    if($wine_row->category->parent_category)
-    {
-        $data->{'category'} = $wine_row->category->parent_category->id;
-        $data->{'subcategory'} = $wine_row->category->id;
-    }
-    else
-    {
-       $data->{'category'} = $wine_row->category->id;
-    }
-    $data->{'name'} = $wine_row->name;
-    $data->{'year'} = $wine_row->year;
-    $data->{'region'} = $wine_row->region;
-    $data->{'winery'} = $wine_row->winery;
-    $data->{'tags'} = Strehler::Meta::Tag::tags_to_string($self->get_attr('id'), 'wine');
-    return $data;
-}
 sub main_title
 {
     my $self = shift;
     return $self->get_attr('name');
+}
+
+sub make_select
+{
+    my $self = shift;
+    my @category_values = schema->resultset('Winery')->search();
+    my @category_values_for_select;
+    push @category_values_for_select, { value => undef, label => "-- seleziona --" }; 
+    for(@category_values)
+    {
+        push @category_values_for_select, { value => $_->id, label => $_->name }
+    }
+    return \@category_values_for_select;
 }
 
 1;

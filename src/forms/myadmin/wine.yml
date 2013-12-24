@@ -32,7 +32,8 @@ elements:
       label: Regione
       attributes: 
         class: span8
-    - name: winery
+    - type: Select
+      name: winery
       label: Cantina
       attributes: 
         class: span8

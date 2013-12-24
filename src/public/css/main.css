@@ -250,4 +250,10 @@ h2
 {
     margin-left: 10px;
 }
+.wine .data img
+{
+    width: 20px;
+    vertical-align: middle;
+    margin-left: 5px;
+}
 

@@ -52,7 +52,15 @@ sub get_basic_data
     $data{'title'} = $self->get_attr('name') . " " . $self->get_attr('year');
     $data{'year'} = $self->get_attr('year');
     $data{'region'} = $self->get_attr('region');
-    $data{'winery'} = $self->get_attr('winery');
+    if($self->get_attr('winery') && $self->row->winery_ref)
+    {
+        $data{'winery'} = $self->row->winery_ref->name;
+        $data{'winery_link'} = $self->row->winery_ref->link;
+    }
+    else
+    {
+        $data{'winery'} = '';
+    }
     $data{'category'} = $self->row->category->category;
     $data{'published'} = $self->get_attr('published');
     return %data;

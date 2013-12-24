@@ -82,4 +82,12 @@ __PACKAGE__->set_primary_key("id");
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
+
+__PACKAGE__->has_many(
+  "wines",
+  "Mauro::MauroDB::Result::Wine",
+  { "foreign.winery" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 1;

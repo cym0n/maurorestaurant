@@ -123,4 +123,16 @@ __PACKAGE__->belongs_to(
     on_update     => undef,
   },
 );
+
+__PACKAGE__->belongs_to(
+  "winery_ref",
+  "Mauro::MauroDB::Result::Winery",
+  { id => "winery" },
+  {
+    is_deferrable => 1,
+    join_type     => "LEFT",
+    on_delete     => undef,
+    on_update     => undef,
+  },
+);
 1;

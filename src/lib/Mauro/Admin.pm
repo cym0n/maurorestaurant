@@ -145,6 +145,8 @@ sub form_wine
     $category->options(Strehler::Meta::Category::make_select());
     my $subcategory = $form->get_element({ name => 'subcategory'});
     $subcategory->options(Strehler::Meta::Category::make_select($has_sub));
+    my $winery = $form->get_element({ name => 'winery'});
+    $winery->options(Mauro::Element::Winery->make_select());
     return $form;
 }
 
