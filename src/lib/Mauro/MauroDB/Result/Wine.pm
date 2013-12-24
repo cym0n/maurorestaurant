@@ -61,9 +61,8 @@ __PACKAGE__->table("WINES");
 
 =head2 winery
 
-  data_type: 'varchar'
+  data_type: 'integer'
   is_nullable: 1
-  size: 100
 
 =head2 category
 
@@ -87,7 +86,7 @@ __PACKAGE__->add_columns(
   "region",
   { data_type => "varchar", is_nullable => 1, size => 100 },
   "winery",
-  { data_type => "varchar", is_nullable => 1, size => 100 },
+  { data_type => "integer", is_nullable => 1 },
   "category",
   { data_type => "integer", is_nullable => 1 },
   "published",
@@ -107,8 +106,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("id");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07037 @ 2013-12-07 00:46:03
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:tq8Xo4W7teIu0XVa05xrpg
+# Created by DBIx::Class::Schema::Loader v0.07037 @ 2013-12-24 13:23:46
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:hDvl6yh9WYiyQEACR1swLA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

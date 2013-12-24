@@ -4,6 +4,7 @@ use Dancer2;
 use Dancer2::Plugin::Strehler;
 use Strehler::Admin;
 use Mauro::Element::Wine;
+use Mauro::Element::Winery;
 use Data::Dumper;
 
 get '/wine' => sub
@@ -96,6 +97,40 @@ post '/wine/edit/:id' => sub
         redirect dancer_app->prefix . '/wine/list';
     }
     template "myadmin/wine", { form => $form->render() }
+};
+
+get '/winery' => sub
+{
+    redirect dancer_app->prefix . '/winery/list';
+};
+
+any '/winery/list' => sub
+{
+    my $list = Mauro::Element::Winery->get_list({ entries_per_page => -1});
+    my $form = HTML::FormFu->new;
+    $form->load_config_file( 'forms/myadmin/winery_fast.yml' );
+    my $params_hashref = params;
+    $form->process($params_hashref);
+    if($form->submitted_and_valid)
+    {
+        my $new_winery = Mauro::Element::Winery->save_form(undef, $form);
+        redirect dancer_app->prefix . '/winery/list';
+    }
+    template "myadmin/winery_list", { winerys => $list->{to_view}, form => $form }
+};
+get '/winery/delete/:id' => sub
+{
+    my $id = params->{id};
+    my $art = Mauro::Element::Winery->new($id);
+    my %article = $art->get_basic_data();
+    template "admin/delete", { what => "la cantina", el => \%article, , backlink => dancer_app->prefix . '/winery' };
+};
+post '/winery/delete/:id' => sub
+{
+    my $id = params->{id};
+    my $article = Mauro::Element::Winery->new($id);
+    $article->delete();
+    redirect dancer_app->prefix . '/winery/list';
 };
 
 

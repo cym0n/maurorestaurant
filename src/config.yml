@@ -47,4 +47,5 @@ Strehler:
     default_language: 'it'
     extra_menu:
         - ['Vini', 'wine']
+        - ['Cantine', 'winery']
 

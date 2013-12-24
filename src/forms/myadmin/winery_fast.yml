@@ -1,0 +1,17 @@
+elements:
+    - name: name
+      label: cantina
+      constraints:
+        - type: Required
+          message: 'Cantina necessaria<br />'
+    - name: link
+      label: link
+    - type: Block
+      name: save
+      tag: button
+      content: Nuova cantina
+      attributes:
+        type: submit
+        class: btn btn-primary
+
+   
