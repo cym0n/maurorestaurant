@@ -7,6 +7,11 @@ use Data::Dumper;
 
 set layout => 'mauro';
 
+hook before_template_render => sub {
+        my $tokens = shift;
+        $tokens->{'google_monitor'} = config->{'google_monitor'};
+};
+
 get '/' => sub {
     my @plate_index;
     my @restaurant_index;
