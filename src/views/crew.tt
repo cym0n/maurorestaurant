@@ -1,0 +1,13 @@
+[% PROCESS "common/$language/vocabulary.tt" %]
+<h1>[% translate.CREW %]</h1>
+[% FOREACH p = crew %]
+<div class="person">
+    <div class="portrait">
+        <img src="[% p.image %]" />
+    </div>
+    <div class="bio">
+        <h2 class="name">[% p.title %]</h2>
+        <p>[% p.text %]</p> 
+    </div>
+</div>
+[% END %]

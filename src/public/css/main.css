@@ -256,4 +256,31 @@ h2
     vertical-align: middle;
     margin-left: 5px;
 }
+.person
+{
+    overflow: auto;
+}
+.person .portrait
+{
+    float: left;
+    margin-right: 10px;
+}
+.person .portrait img
+{
+    max-width: 210px;
+}
+.person .bio
+{
+    float: left;
+    color: #fff;
+    width: 400px;
+}
+
+.person .name
+{
+    border-bottom: 1px solid #fff;
+    line-height: 1.2em;
+    margin-top: 0;
+}
+
 
