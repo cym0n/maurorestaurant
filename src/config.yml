@@ -46,6 +46,16 @@ Strehler:
     languages: ['it', 'en']
     default_language: 'it'
     extra_menu:
-        - ['Vini', 'wine']
-        - ['Cantine', 'winery']
+        winery:
+            auto: 0
+            label: Cantine
+            class: Mauro::Element::Winery
+        wine:
+            auto: 1
+            label: Vini
+            class: Mauro::Element::Wine
+            categorized: 1
+            publishable: 1
+        
+        
 

@@ -8,7 +8,7 @@
 </div>
 <script>
     $(document).ready(function() {
-        item_type = 'article';
+        item_type = 'wine';
         category_init();
         tags_init([% id %]);
     });

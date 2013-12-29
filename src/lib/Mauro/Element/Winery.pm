@@ -48,6 +48,7 @@ sub get_basic_data
     my %data;
     $data{'id'} = $self->get_attr('id');
     $data{'name'} = $self->get_attr('name');
+    $data{'title'} = $self->main_title();
     $data{'link'} = $self->get_attr('link');
     return %data;
 }

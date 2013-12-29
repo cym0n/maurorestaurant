@@ -129,12 +129,12 @@ get '/business-lunch' => sub
 get '/vini/vini-rossi' => sub
 {
     my $wines = Mauro::Element::Wine->get_list({category => 'vini/vini rossi', 'entries_per_page' => -1, published => 1});
-    template "wines-list", { wines_type => "Vini rossi", language => language, wines => $wines->{to_view} };
+    template "wines-list", { title => "Vini rossi", page_description => "Questa la selezione di vini rossi offerta da Mauro Restaurant", wines_type => "Vini rossi", language => language, wines => $wines->{to_view} };
 };
 get '/vini/vini-bianchi' => sub
 {
     my $wines = Mauro::Element::Wine->get_list({category => 'vini/vini bianchi', 'entries_per_page' => -1, published => 1});
-    template "wines-list", { wines_type => "Vini rossi", language => language, wines => $wines->{to_view} };
+    template "wines-list", { title => "Vini bianchi", page_description => "Questa la selezione di vini bianchi offerta da Mauro Restaurant", wines_type => "Vini bianchi", language => language, wines => $wines->{to_view} };
 };
 
 
