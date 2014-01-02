@@ -7,12 +7,14 @@ use Dancer2::Plugin::Ajax;
 use Dancer2::Plugin::Strehler;
 use HTML::FormFu;
 use HTML::FormFu::Element::Block;
-use Data::Dumper;
+use Authen::Passphrase::BlowfishCrypt;
 use Strehler::Helpers;
 use Strehler::Meta::Tag;
 use Strehler::Element::Image;
 use Strehler::Element::Article;
+use Strehler::Element::User;
 use Strehler::Meta::Category;
+
 
 my @languages = @{config->{Strehler}->{languages}};
 
@@ -24,7 +26,7 @@ get '/' => sub {
     template "admin/index", { navbar => \%navbar};
 };
 
-##### Login #####
+##### Login/Logout #####
 
 any '/login' => sub {
     my $form = HTML::FormFu->new;
@@ -34,9 +36,11 @@ any '/login' => sub {
     my $message;
     if($form->submitted_and_valid)
     {
-        if(login_valid($params_hashref->{'user'}, $params_hashref->{'password'}))
+        my $role = login_valid($params_hashref->{'user'}, $params_hashref->{'password'});
+        if($role)
         {
             session 'user' => $params_hashref->{'user'};
+            session 'role' => $role;
             if( session 'redir_url' )
             {
                 my $redir = redirect(session 'redir_url');
@@ -56,6 +60,15 @@ any '/login' => sub {
         }
     }
     template "admin/login", { form => $form->render(), message => $message, layout => 'admin' }
+};
+
+get '/logout' => sub
+{
+    session 'user' => undef;
+    session 'role' => undef;
+    my $redir = redirect(dancer_app->prefix . '/');
+    context->response->is_halted(0);
+    return $redir;
 };
 
 ##### Images #####
@@ -154,16 +167,79 @@ post '/article/edit/:id' => sub
     template "admin/article", { form => $form->render() }
 };
 
+#Users
+
+any '/user/add' => sub
+{
+    if (! check_role('user'))
+    {
+        send_error("Access denied", 403);
+        return;
+    }
+    my $form = form_user('add');
+    my $params_hashref = params;
+    $form->process($params_hashref);
+    if($form->submitted_and_valid)
+    {
+        my $id = Strehler::Element::User->save_form(undef, $form);
+        redirect dancer_app->prefix . '/user/list';
+    }
+    $form = bootstrap_divider($form);
+    template "admin/user", { form => $form->render() }
+};
+
+get '/user/edit/:id' => sub {
+    if (! check_role('user'))
+    {
+        send_error("Access denied", 403);
+        return;
+    }
+    my $id = params->{id};
+    my $user = Strehler::Element::User->new($id);
+    my $form_data = $user->get_form_data();
+    my $form = form_user('edit');
+    $form->default_values($form_data);
+    template "admin/user", { form => $form->render() }
+};
+
+post '/user/edit/:id' => sub
+{
+    if (! check_role('user'))
+    {
+        send_error("Access denied", 403);
+        return;
+    }
+    my $form = form_user('edit');
+    my $id = params->{id};
+    my $params_hashref = params;
+    $form->process($params_hashref);
+    if($form->submitted_and_valid)
+    {
+        Strehler::Element::User->save_form($id, $form);
+        redirect dancer_app->prefix . '/user/list';
+    }
+    template "admin/user", { form => $form->render() }
+};
 
 #Categories
 
 get '/category' => sub
 {
+    if (! check_role('category'))
+    {
+        send_error("Access denied", 403);
+        return;
+    }
     redirect dancer_app->prefix . '/category/list';
 };
 
 any '/category/list' => sub
 {
+    if (! check_role('category'))
+    {
+        send_error("Access denied", 403);
+        return;
+    }
     #THE TABLE
     my $to_view = Strehler::Meta::Category::get_list();
 
@@ -185,6 +261,11 @@ any '/category/list' => sub
 
 any '/category/add' => sub
 {
+    if (! check_role('category'))
+    {
+        send_error("Access denied", 403);
+        return;
+    }
     my $form = form_category();
     my $params_hashref = params;
     my @entities = get_categorized_entities();
@@ -198,6 +279,11 @@ any '/category/add' => sub
     template "admin/category", { form => $form->render() }
 };
 get '/category/edit/:id' => sub {
+    if (! check_role('category'))
+    {
+        send_error("Access denied", 403);
+        return;
+    }
     my $id = params->{id};
     my $category = Strehler::Meta::Category->new($id);
     my @entities = get_categorized_entities();
@@ -209,6 +295,11 @@ get '/category/edit/:id' => sub {
 };
 post '/category/edit/:id' => sub
 {
+    if (! check_role('category'))
+    {
+        send_error("Access denied", 403);
+        return;
+    }
     my $form = form_category();
     my $id = params->{id};
     my $params_hashref = params;
@@ -224,6 +315,11 @@ post '/category/edit/:id' => sub
 
 get '/category/delete/:id' => sub
 {
+    if (! check_role('category'))
+    {
+        send_error("Access denied", 403);
+        return;
+    }
     my $id = params->{id};
     my $category = Strehler::Meta::Category->new($id);
     if($category->has_elements())
@@ -240,6 +336,11 @@ get '/category/delete/:id' => sub
 };
 post '/category/delete/:id' => sub
 {
+    if (! check_role('category'))
+    {
+        send_error("Access denied", 403);
+        return;
+    }
     my $id = params->{id};
     my $category = Strehler::Meta::Category->new($id);
     $category->delete();
@@ -252,7 +353,7 @@ ajax '/category/last/:id' => sub
     my $category = Strehler::Meta::Category->new($id);
     return $category->max_article_order() + 1;
 };
-get '/category/select/:id' => sub
+ajax '/category/select/:id' => sub
 {
     my $id = params->{id};
     my $data = Strehler::Meta::Category::make_select($id);
@@ -265,7 +366,7 @@ get '/category/select/:id' => sub
         return 0;
     }
 };
-get '/category/select' => sub
+ajax '/category/select' => sub
 {
     my $data = Strehler::Meta::Category::make_select(undef);
     if($data->[1])
@@ -300,6 +401,11 @@ ajax '/category/tagform/:type/:id?' => sub
 get '/:entity' => sub
 {
     my ($entity, $class, $categorized, $publishable, $custom_list_view) = get_entity_data(params->{entity});
+    if (! check_role($entity))
+    {
+        send_error("Access denied", 403);
+        return;
+    }
     if($entity)
     {
         redirect dancer_app->prefix . '/' . $entity . '/list';
@@ -312,12 +418,12 @@ get '/:entity' => sub
 
 any '/:entity/list' => sub
 {
-    my $entity;
-    my $class;
-    my $categorized;
-    my $publishable;
-    my $custom_list_view;
-    ($entity, $class, $categorized, $publishable, $custom_list_view) = get_entity_data(params->{entity});
+    my ($entity, $class, $categorized, $publishable, $custom_list_view) = get_entity_data(params->{entity});
+    if (! check_role($entity))
+    {
+        send_error("Access denied", 403);
+        return;
+    }
     if(! $entity)
     {
         return pass;
@@ -345,7 +451,12 @@ any '/:entity/list' => sub
 get '/:entity/turnon/:id' => sub
 {
     my ($entity, $class, $categorized, $publishable, $custom_list_view) = get_entity_data(params->{entity});
-     if(! $entity)
+    if (! check_role($entity))
+    {
+        send_error("Access denied", 403);
+        return;
+    }
+    if(! $entity)
     {
         return pass;
     }
@@ -362,6 +473,11 @@ get '/:entity/turnon/:id' => sub
 get '/:entity/turnoff/:id' => sub
 {
     my ($entity, $class, $categorized, $publishable, $custom_list_view) = get_entity_data(params->{entity});
+    if (! check_role($entity))
+    {
+        send_error("Access denied", 403);
+        return;
+    }
     if(! $entity)
     {
         return pass;
@@ -379,6 +495,11 @@ get '/:entity/turnoff/:id' => sub
 get '/:entity/delete/:id' => sub
 {
     my ($entity, $class, $categorized, $publishable, $custom_list_view) = get_entity_data(params->{entity});
+    if (! check_role($entity))
+    {
+        send_error("Access denied", 403);
+        return;
+    }
     if(! $entity)
     {
         return pass;
@@ -392,6 +513,11 @@ get '/:entity/delete/:id' => sub
 post '/:entity/delete/:id' => sub
 {
     my ($entity, $class, $categorized, $publishable, $custom_list_view) = get_entity_data(params->{entity});
+    if (! check_role($entity))
+    {
+        send_error("Access denied", 403);
+        return;
+    }
     if(! $entity)
     {
         return pass;
@@ -452,15 +578,17 @@ sub login_valid
 {
     my $user = shift;
     my $password = shift;
-    my $hashed = md5_hex($password);
-    my $rs = schema->resultset('User')->find({'user' => $user, 'password' => $hashed});
-    if($rs)
+    my $rs = schema->resultset('User')->find({'user' => $user});
+    my $ppr = Authen::Passphrase::BlowfishCrypt->new(
+                cost => 8, salt_base64 => $rs->password_salt,
+                hash_base64 => $rs->password_hash);
+    if($ppr->match($password))
     {
-        return 1;
+        return $rs->role;
     }
     else
     {
-        return 0;
+        return undef;
     }
         
 }
@@ -505,9 +633,23 @@ sub form_category
     my $category = $form->get_element({ name => 'parent'});
     $category->options(Strehler::Meta::Category::make_select());
     $form = add_dynamic_fields_for_category($form); 
-    
     return $form;
 }
+
+sub form_user
+{
+    my $action = shift;
+    my $form = HTML::FormFu->new;
+    $form->load_config_file( 'forms/admin/user.yml' );
+    if($action eq 'add')
+    {
+        $form->constraint({ name => 'password', type => 'Required' }); 
+        $form->constraint({ name => 'password-confirm', type => 'Required' }); 
+    }
+    return $form;
+}
+
+
 sub tags_for_form
 {
     my $form = shift;
@@ -636,6 +778,14 @@ sub get_entity_data
         $publishable = 1;
         $custom_list_view = 'admin/image_list';
     }
+    elsif($entity eq 'user')
+    {
+        $class = 'Strehler::Element::User';
+        $categorized = 0;
+        $publishable = 0;
+#        $custom_list_view = 'admin/image_list';
+    }
+  
     elsif(config->{'Strehler'}->{'extra_menu'}->{$entity})
     {
         if(config->{'Strehler'}->{'extra_menu'}->{$entity}->{auto})
@@ -655,6 +805,25 @@ sub get_entity_data
         $entity = undef;
     }
     return ($entity, $class, $categorized, $publishable, $custom_list_view);
+}
+sub check_role
+{
+    my $entity = shift;
+    if($entity eq 'user' || $entity eq 'category')
+    {
+        if(session->read('role') && session->read('role') eq 'admin')
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    else
+    {
+        return 1;
+    }
 }
 
 
