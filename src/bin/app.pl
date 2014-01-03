@@ -1,10 +1,10 @@
 #!/usr/bin/env perl
-use Dancer2;
-#use slimtest;
-#use dagolden;
+
+use FindBin;
+use lib "$FindBin::Bin/../lib";
 
 use Strehler::Admin;
 use Mauro::Admin;
 use Mauro;
 
-dance;
+Mauro->dance;
