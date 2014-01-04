@@ -208,6 +208,11 @@ h2
     color: #fff;
     width: 550px;
 }
+.business-spot
+{
+    color: #fff;
+    width: 150px;
+}
 #recipe h1
 {
     width: 600px;
@@ -255,5 +260,11 @@ h2
     width: 20px;
     vertical-align: middle;
     margin-left: 5px;
+}
+.generic-content
+{
+    width: 550px;
+    color: #fff;
+    font-size: 1.4em;
 }
 

@@ -56,11 +56,13 @@ get '/' => sub {
 };
 get '/dove-siamo|/location' => sub 
 {
+    my %page_title = ( it => 'Dove siamo',
+                  en => 'Location' );
     my %page_description = ( it => 'Guarda sulla mappa la posizione di Mauro Restaurant',
                              en => 'Check on the map the Mauro Restaurant location' );
     my $lang = language;
 
-    template "dove-siamo", { title => "Dove siamo", page_description => $page_description{$lang}, language => language }; 
+    template "dove-siamo", { title => $page_title{$lang}, page_description => $page_description{$lang}, language => language }; 
 };
 get '/menu' => sub 
 {
@@ -135,6 +137,18 @@ get '/vini/vini-bianchi' => sub
 {
     my $wines = Mauro::Element::Wine->get_list({category => 'vini/vini bianchi', 'entries_per_page' => -1, published => 1});
     template "wines-list", { title => "Vini bianchi", page_description => "Questa la selezione di vini bianchi offerta da Mauro Restaurant", wines_type => "Vini bianchi", language => language, wines => $wines->{to_view} };
+};
+get '/per-le-aziende|/for-business' => sub
+{
+    my %page_title = ( it => 'Per le aziende',
+                       en => 'For business' );
+    my %page_description = ( it => "Sei un'azienza? Mauro Restaurant ha delle opportunit&agrave; per te",
+                             en => 'Do you need a place for your business meetings? Mauro Restaurant could be the place!' );
+    my $lang = language;
+    my $text = Strehler::Element::Article->get_last_by_date('per le aziende');
+    my %text_data = $text->get_ext_data(language);
+    $text_data{'text'} = markdown($text_data{'text'});
+    template "page", { title => $page_title{$lang}, page_description => $page_description{$lang}, language => language, content => \%text_data }; 
 };
 
 
