@@ -1,10 +1,11 @@
+[% PROCESS "common/$language/vocabulary.tt" %]
 <h1>[% wines_type %]</h1>
 [% FOREACH w = wines %]
 <div class="wine">
     <div class="name">[% w.name %]</div>
     <div class="data">[% w.region %], [% w.year %]</div> 
     [% IF w.winery %]
-    <div class="data">Cantina: [% w.winery %][% IF w.winery_link %]<a target="_blank" href="[% w.winery_link %]"><img src="/images/link.png" /></a>[% END %]</div>
+    <div class="data">[% translate.WINERY %]: [% w.winery %][% IF w.winery_link %]<a target="_blank" href="[% w.winery_link %]"><img src="/images/link.png" /></a>[% END %]</div>
     [% END %]
 </div>
 [% END %]

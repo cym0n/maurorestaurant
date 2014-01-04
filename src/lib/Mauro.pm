@@ -128,15 +128,26 @@ get '/business-lunch' => sub
   template "business-lunch", { title => "Business Lunch", page_description => "Approfitta a mezzogiorno dell'offerta Business Lunch, per provare i piatti del ristorante", language => language, claim => \%text_data, %items }; 
 };
 
-get '/vini/vini-rossi' => sub
+get '/vini/vini-rossi|/wine/red-wine' => sub
 {
+    my %page_title = ( it => 'Vini rossi',
+                       en => 'Red wine' );
+    my %page_description = ( it => "Questa la selezione di vini rossi offerta da Mauro Restaurant",
+                             en => "These are the red wines offered by Mauro Restaurant" );
+    my $lang = language;
     my $wines = Mauro::Element::Wine->get_list({category => 'vini/vini rossi', 'entries_per_page' => -1, published => 1});
-    template "wines-list", { title => "Vini rossi", page_description => "Questa la selezione di vini rossi offerta da Mauro Restaurant", wines_type => "Vini rossi", language => language, wines => $wines->{to_view} };
+    template "wines-list", { title => $page_title{$lang}, page_description => $page_description{$lang}, wines_type => "Vini rossi", language => language, wines => $wines->{to_view} };
 };
-get '/vini/vini-bianchi' => sub
+get '/vini/vini-bianchi|/wine/white-wine' => sub
 {
+    my %page_title = ( it => 'Vini bianchi',
+                       en => 'White wine' );
+    my %page_description = ( it => "Questa la selezione di vini bianchi offerta da Mauro Restaurant",
+                             en => "These are the white wines offered by Mauro Restaurant" );
+    my $lang = language;
+
     my $wines = Mauro::Element::Wine->get_list({category => 'vini/vini bianchi', 'entries_per_page' => -1, published => 1});
-    template "wines-list", { title => "Vini bianchi", page_description => "Questa la selezione di vini bianchi offerta da Mauro Restaurant", wines_type => "Vini bianchi", language => language, wines => $wines->{to_view} };
+    template "wines-list", { title => $page_title{$lang}, page_description => $page_description{$lang}, wines_type => "Vini bianchi", language => language, wines => $wines->{to_view} };
 };
 get '/per-le-aziende|/for-business' => sub
 {

@@ -14,6 +14,7 @@
     MAINCOURSES_FISH = "Secondi di pesce",
     MAINCOURSES = "Secondi",
     SIDES = "Contorni",
-    DESSERTS = "Dolci"
+    DESSERTS = "Dolci",
+    WINERY = "Cantina"
 }
 %]
