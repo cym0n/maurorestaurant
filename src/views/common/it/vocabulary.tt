@@ -16,5 +16,6 @@
     SIDES = "Contorni",
     DESSERTS = "Dolci",
     WINERY = "Cantina"
+    CREW = "Personale"
 }
 %]

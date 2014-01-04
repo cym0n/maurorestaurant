@@ -101,10 +101,6 @@ get '/menu/:slug' => sub
         template "recipe", { htmlid => 'recipe', title => $recipe_data{'title'}, page_description => 'Uno dei piatti del Mauro Restaurant', canonical => "http:/www.maurorestaurant.it/menu/" . $recipe_data{'slug'}, language => language,
                              recipe => \%recipe_data };
     } 
-
-
-
-
 };
 
 
@@ -160,6 +156,11 @@ get '/per-le-aziende|/for-business' => sub
     my %text_data = $text->get_ext_data(language);
     $text_data{'text'} = markdown($text_data{'text'});
     template "page", { title => $page_title{$lang}, page_description => $page_description{$lang}, language => language, content => \%text_data }; 
+};
+get '/personale|/crew' => sub
+{
+    my $crew = Strehler::Element::Article->get_list({category => 'personale/', 'entries_per_page' => -1, published => 1, order_by => 'display_order', ext => 1, language => language});
+    template "crew", { language => language, crew => $crew->{to_view} };
 };
 
 

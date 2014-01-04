@@ -9,5 +9,6 @@
     TIMETABLE3 = "closed on saturday at lunch and sunday",
     PHONE = "Phone +39 02 39833858",
     WINERY = "Winery"
+    CREW = "Crew",
 }
 %]
