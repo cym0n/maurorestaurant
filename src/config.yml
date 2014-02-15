@@ -47,13 +47,15 @@ Strehler:
     default_language: 'it'
     extra_menu:
         winery:
-            auto: 0
+            auto: 1
             label: Cantine
             class: Mauro::Element::Winery
+            form: forms/myadmin/winery_fast.yml
         wine:
             auto: 1
             label: Vini
             class: Mauro::Element::Wine
+            form: forms/myadmin/wine.yml
             categorized: 1
             publishable: 1
         

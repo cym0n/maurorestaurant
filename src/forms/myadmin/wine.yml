@@ -32,8 +32,9 @@ elements:
       label: Regione
       attributes: 
         class: span8
-    - type: Select
+    - type: Strehler::EntitySelect
       name: winery
+      element: Mauro::Element::Winery
       label: Cantina
       attributes: 
         class: span8

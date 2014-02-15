@@ -101,10 +101,6 @@ get '/menu/:slug' => sub
         template "recipe", { htmlid => 'recipe', title => $recipe_data{'title'}, page_description => 'Uno dei piatti del Mauro Restaurant', canonical => "http:/www.maurorestaurant.it/menu/" . $recipe_data{'slug'}, language => language,
                              recipe => \%recipe_data };
     } 
-
-
-
-
 };
 
 
