@@ -21,6 +21,7 @@
                 <td>[% el.link %]</td>
                 <td>
                     <div class="btn-group span2 offset1">
+                        <a href="/admin/winery/edit/[% el.id %]" class="btn">Edit</a>
                         <a href="/admin/winery/delete/[% el.id %]" class="btn">Delete</a>
                     </div>
                 </td>
