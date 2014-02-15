@@ -17,7 +17,7 @@
     [% IF i == 3 %]
         [% style = "bottom: 0; right: 0;" %]
     [% END %]
-    <img style="position: absolute; [% style %]" src="[% image.source %]" />
+    <img style="position: absolute; [% style %]" src="[% image.image %]" />
     [% i = i+1 %]
     [% END %]
 </div>

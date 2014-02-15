@@ -62,11 +62,13 @@ __PACKAGE__->table("WINES");
 =head2 winery
 
   data_type: 'integer'
+  is_foreign_key: 1
   is_nullable: 1
 
 =head2 category
 
   data_type: 'integer'
+  is_foreign_key: 1
   is_nullable: 1
 
 =head2 published
@@ -86,9 +88,9 @@ __PACKAGE__->add_columns(
   "region",
   { data_type => "varchar", is_nullable => 1, size => 100 },
   "winery",
-  { data_type => "integer", is_nullable => 1 },
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
   "category",
-  { data_type => "integer", is_nullable => 1 },
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
   "published",
   { data_type => "tinyint", is_nullable => 1 },
 );
@@ -105,12 +107,15 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("id");
 
+=head1 RELATIONS
 
-# Created by DBIx::Class::Schema::Loader v0.07037 @ 2013-12-24 13:23:46
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:hDvl6yh9WYiyQEACR1swLA
+=head2 category
 
+Type: belongs_to
 
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+Related object: L<Mauro::MauroDB::Result::Category>
+
+=cut
 
 __PACKAGE__->belongs_to(
   "category",
@@ -119,20 +124,35 @@ __PACKAGE__->belongs_to(
   {
     is_deferrable => 1,
     join_type     => "LEFT",
-    on_delete     => undef,
-    on_update     => undef,
+    on_delete     => "RESTRICT",
+    on_update     => "RESTRICT",
   },
 );
 
+=head2 winery
+
+Type: belongs_to
+
+Related object: L<Mauro::MauroDB::Result::Winery>
+
+=cut
+
 __PACKAGE__->belongs_to(
-  "winery_ref",
+  "winery",
   "Mauro::MauroDB::Result::Winery",
   { id => "winery" },
   {
     is_deferrable => 1,
     join_type     => "LEFT",
-    on_delete     => undef,
-    on_update     => undef,
+    on_delete     => "RESTRICT",
+    on_update     => "RESTRICT",
   },
 );
+
+
+# Created by DBIx::Class::Schema::Loader v0.07037 @ 2014-02-15 12:23:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:P2NuiqpRIA61pDvDlhPu2g
+
+
+# You can replace this text with custom code or comments, and it will be preserved on regeneration
 1;

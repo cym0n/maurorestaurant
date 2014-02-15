@@ -40,7 +40,7 @@ get '/' => sub {
     push @showcase, $output[3];
     push @showcase, $output[1];
 
-    my $text = Strehler::Element::Article->get_last_by_date('homepage');
+    my $text = Strehler::Element::Article->get_last_by_date('pagine/homepage', language);
     my %text_data = $text->get_ext_data(language);
     if($text_data{'text'})
     {
@@ -110,7 +110,7 @@ get '/menu/:slug' => sub
 
 get '/business-lunch' => sub
 {
-  my $text = Strehler::Element::Article->get_last_by_date('business lunch');
+  my $text = Strehler::Element::Article->get_last_by_date('pagine/business lunch', language);
   my %text_data = $text->get_ext_data(language);
   $text_data{'text'} = markdown($text_data{'text'});
   my %items;
@@ -156,7 +156,7 @@ get '/per-le-aziende|/for-business' => sub
     my %page_description = ( it => "Sei un'azienza? Mauro Restaurant ha delle opportunit&agrave; per te",
                              en => 'Do you need a place for your business meetings? Mauro Restaurant could be the place!' );
     my $lang = language;
-    my $text = Strehler::Element::Article->get_last_by_date('per le aziende');
+    my $text = Strehler::Element::Article->get_last_by_date('per le aziende', language);
     my %text_data = $text->get_ext_data(language);
     $text_data{'text'} = markdown($text_data{'text'});
     template "page", { title => $page_title{$lang}, page_description => $page_description{$lang}, language => language, content => \%text_data }; 

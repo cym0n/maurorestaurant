@@ -76,12 +76,15 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("id");
 
+=head1 RELATIONS
 
-# Created by DBIx::Class::Schema::Loader v0.07037 @ 2013-12-24 13:23:46
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ht5OFogyT4voyQxBSK1eow
+=head2 wines
 
+Type: has_many
 
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+Related object: L<Mauro::MauroDB::Result::Wine>
+
+=cut
 
 __PACKAGE__->has_many(
   "wines",
@@ -90,4 +93,10 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+
+# Created by DBIx::Class::Schema::Loader v0.07037 @ 2014-02-15 12:23:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:OSX67Vi9IkZ3ZbieawF3ug
+
+
+# You can replace this text with custom code or comments, and it will be preserved on regeneration
 1;

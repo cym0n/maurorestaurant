@@ -50,6 +50,7 @@ __PACKAGE__->table("ARTICLES");
 =head2 category
 
   data_type: 'integer'
+  is_foreign_key: 1
   is_nullable: 1
 
 =head2 display_order
@@ -77,7 +78,7 @@ __PACKAGE__->add_columns(
   "image",
   { data_type => "varchar", is_nullable => 1, size => 50 },
   "category",
-  { data_type => "integer", is_nullable => 1 },
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
   "display_order",
   { data_type => "integer", is_nullable => 1 },
   "publish_date",
@@ -103,19 +104,15 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("id");
 
+=head1 RELATIONS
 
-# Created by DBIx::Class::Schema::Loader v0.07036 @ 2013-10-13 16:49:30
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:2Z/b7ZFDqozhiHm46V8Iew
+=head2 category
 
+Type: belongs_to
 
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+Related object: L<Mauro::MauroDB::Result::Category>
 
-__PACKAGE__->has_many(
-  "contents",
-  "Mauro::MauroDB::Result::Content",
-  { "foreign.article" => "self.id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
+=cut
 
 __PACKAGE__->belongs_to(
   "category",
@@ -124,9 +121,30 @@ __PACKAGE__->belongs_to(
   {
     is_deferrable => 1,
     join_type     => "LEFT",
-    on_delete     => undef,
-    on_update     => undef,
+    on_delete     => "RESTRICT",
+    on_update     => "RESTRICT",
   },
 );
 
+=head2 contents
+
+Type: has_many
+
+Related object: L<Mauro::MauroDB::Result::Content>
+
+=cut
+
+__PACKAGE__->has_many(
+  "contents",
+  "Mauro::MauroDB::Result::Content",
+  { "foreign.article" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07037 @ 2014-02-15 11:41:44
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:5ykX8ND5M65nGQwYzhAsZg
+
+
+# You can replace this text with custom code or comments, and it will be preserved on regeneration
 1;

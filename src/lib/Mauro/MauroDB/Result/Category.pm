@@ -50,6 +50,7 @@ __PACKAGE__->table("CATEGORIES");
 =head2 parent
 
   data_type: 'integer'
+  is_foreign_key: 1
   is_nullable: 1
 
 =cut
@@ -60,7 +61,7 @@ __PACKAGE__->add_columns(
   "category",
   { data_type => "varchar", is_nullable => 1, size => 120 },
   "parent",
-  { data_type => "integer", is_nullable => 1 },
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
@@ -75,19 +76,15 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("id");
 
+=head1 RELATIONS
 
-# Created by DBIx::Class::Schema::Loader v0.07036 @ 2013-10-13 16:49:30
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:UDbKnVLxkjAy5MqG5zkLLw
+=head2 articles
 
+Type: has_many
 
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+Related object: L<Mauro::MauroDB::Result::Article>
 
-__PACKAGE__->has_many(
-  "images",
-  "Mauro::MauroDB::Result::Image",
-  { "foreign.category" => "self.id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
+=cut
 
 __PACKAGE__->has_many(
   "articles",
@@ -96,24 +93,78 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 categories
+
+Type: has_many
+
+Related object: L<Mauro::MauroDB::Result::Category>
+
+=cut
+
+__PACKAGE__->has_many(
+  "categories",
+  "Mauro::MauroDB::Result::Category",
+  { "foreign.parent" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 configured_tags
+
+Type: has_many
+
+Related object: L<Mauro::MauroDB::Result::ConfiguredTag>
+
+=cut
+
+__PACKAGE__->has_many(
+  "configured_tags",
+  "Mauro::MauroDB::Result::ConfiguredTag",
+  { "foreign.category_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 images
+
+Type: has_many
+
+Related object: L<Mauro::MauroDB::Result::Image>
+
+=cut
+
+__PACKAGE__->has_many(
+  "images",
+  "Mauro::MauroDB::Result::Image",
+  { "foreign.category" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 parent
+
+Type: belongs_to
+
+Related object: L<Mauro::MauroDB::Result::Category>
+
+=cut
+
 __PACKAGE__->belongs_to(
-  "parent_category",
+  "parent",
   "Mauro::MauroDB::Result::Category",
   { id => "parent" },
   {
     is_deferrable => 1,
     join_type     => "LEFT",
-    on_delete     => undef,
-    on_update     => undef,
+    on_delete     => "RESTRICT",
+    on_update     => "RESTRICT",
   },
 );
 
-__PACKAGE__->has_many(
-  "subcategories",
-  "Mauro::MauroDB::Result::Category",
-  { "foreign.parent" => "self.id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
+=head2 wines
+
+Type: has_many
+
+Related object: L<Mauro::MauroDB::Result::Wine>
+
+=cut
 
 __PACKAGE__->has_many(
   "wines",
@@ -123,5 +174,9 @@ __PACKAGE__->has_many(
 );
 
 
+# Created by DBIx::Class::Schema::Loader v0.07037 @ 2014-02-15 12:15:54
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:PWygWkaEOXTFFB8SBKF2wQ
 
+
+# You can replace this text with custom code or comments, and it will be preserved on regeneration
 1;
