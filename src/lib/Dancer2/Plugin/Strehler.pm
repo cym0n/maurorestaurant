@@ -14,7 +14,6 @@ on_plugin_import {
                 {
                     $context->session->{'redir_url'} = $context->request->path_info;
                     my $redir = $dsl->redirect($dsl->dancer_app->prefix . '/login');
-                    $context->response->is_halted(0);
                     return $redir;
                 }
             }));
@@ -37,8 +36,16 @@ on_plugin_import {
             $navbar{$tab} = 'active';
             $tokens->{'navbar'} = \%navbar;
             $tokens->{'extramenu'} = $dsl->config->{Strehler}->{'extra_menu'};
-            $tokens->{'role'} = $dsl->context->session->read('role');
-            $tokens->{'user'} = $dsl->context->session->read('user');
+            if(! $dsl->config->{Strehler}->{admin_secured})
+            {
+                $tokens->{'role'} = 'admin';
+                $tokens->{'user'} = 'admin';
+            }
+            else
+            {
+                $tokens->{'role'} = $dsl->context->session->read('role');
+                $tokens->{'user'} = $dsl->context->session->read('user');
+            }
         }));
     };
     
