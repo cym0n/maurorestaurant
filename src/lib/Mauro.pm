@@ -3,7 +3,7 @@ package Mauro;
 use Dancer2;
 use Dancer2::Plugin::Multilang;
 use Text::Markdown 'markdown';
-use Data::Dumper;
+use Mauro::Element::Wine;
 
 set layout => 'mauro';
 
