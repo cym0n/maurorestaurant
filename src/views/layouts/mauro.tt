@@ -10,7 +10,7 @@
     <meta property="og:type" content="website"/>
     <meta property="og:title" content="Mauro Restaurant"/>
     <meta itemprop="name" content="Mauro Restaurant"/>
-    <meta name="keywords" content="mauro, restaurant, ristorante, milano, cucina, cucina tipica milanese, carne, pesce, pasta, primi, secondi, pranzo, cena" />
+    <meta name="keywords" content="restaurant, ristorante, milano, cucina, cucina tipica milanese, carne, pesce, pasta, primi, secondi, pranzo, cena" />
     <script src="[% request.uri_base %]/js/jquery-1.9.1.js"></script>
     <script src="[% request.uri_base %]/js/jquery-ui-1.10.3.custom.min.js"></script>
     <script>

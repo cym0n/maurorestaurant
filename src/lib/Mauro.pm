@@ -46,12 +46,13 @@ get '/' => sub {
     {
         $text_data{'text'} = markdown($text_data{'text'});
     }
+    my %page_title = ( it => 'Cucina tipica milanese', en => 'Typical Milanese cooking' );
 
     my %page_description = ( it => 'Mauro Restaurant, ristorante a Milano, cucina tipica milanese con prodotti di stagione',
                              en => 'Mauro Restaurant, restaurant in Milan, traditional seasonal cooking' );
     my $lang = language;
 
-    template "index", { title => "Homepage", page_description => $page_description{$lang}, language => $lang, 
+    template "index", { title => $page_title{$lang}, page_description => $page_description{$lang}, language => $lang, 
                         images => \@showcase, text => \%text_data };
 };
 get '/dove-siamo|/location' => sub 
