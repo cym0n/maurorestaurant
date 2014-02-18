@@ -48,7 +48,7 @@ get '/' => sub {
     }
     my %page_title = ( it => 'Cucina tipica milanese', en => 'Typical Milanese cooking' );
 
-    my %page_description = ( it => 'Mauro Restaurant, ristorante a Milano, cucina tipica milanese con prodotti di stagione',
+    my %page_description = ( it => "Ristorante a Milano zona piazzale Susa, la tradizione della cucina tipica milanese si unisce alla modernit&agrave; e all'eleganza del locale. Il menu varia per offrire carne e pesce di prima qualit&agrave;, accompagnati dal meglio delle specialit&agrave; stagionali. Possibilit&agrave; di preventivi per cene aziendali.",
                              en => 'Mauro Restaurant, restaurant in Milan, traditional seasonal cooking' );
     my $lang = language;
 

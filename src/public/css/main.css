@@ -148,7 +148,7 @@ h2
 .content
 {
     float: left;
-    margin-left: 100px;
+    margin-left: 10px;
 }
 .footer
 {
@@ -173,18 +173,22 @@ h2
 {
     position: relative; 
     width: 510px; 
-    height: 510px
+    height: 510px;
+    margin-left: 75px;
 }
 .showcase img
 {
     width: 250px;
     height: 250px;
 }
-.tagline
+.tagline h1
 {
+    width: 630px;
     margin-bottom: 20px;
     font-size: 2em;
     color: #fff;
+    line-height: 1.2em;
+    text-align: center;
 }
 .tagline p
 {

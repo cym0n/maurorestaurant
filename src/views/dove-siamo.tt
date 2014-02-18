@@ -1,8 +1,8 @@
 <div class="tagline">
-    Mauro Restaurant<br />
-    Via Gaspare Gozzi 6, Milano
+    <h1>Mauro Restaurant<br />
+    Via Gaspare Gozzi 6, Milano</h1>
 </div>
-<div style="width:500px;height:400px">
-<iframe width="500" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&source=s_q&hl=it&geocode=&q=via%2Bgaspare%2Bgozzi%2B6%2C%2Bmilano%2C%2Bitaly&ie=UTF8&z=16&t=m&iwloc=near&output=embed"></iframe>
-<br><table width="500" cellpadding="0" cellspacing="0" border="0"><tr><td align="left"><small><a target="_blank" href="http://maps.google.com/maps?f=q&source=s_q&hl=it&geocode=&q=via%2Bgaspare%2Bgozzi%2B6%2C%2Bmilano%2C%2Bitaly&ie=UTF8&z=16&t=m&iwloc=near">Visualizzazione ingrandita della mappa</a></small></td><td align="right"></td></tr></table>
+<div style="width:500px;height:400px; margin-left:75px">
+<iframe width="500" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=it&amp;geocode=&amp;q=mauro+restaurant,+milano&amp;aq=&amp;sll=37.0625,-95.677068&amp;sspn=37.410045,56.513672&amp;ie=UTF8&amp;hq=mauro+restaurant,&amp;hnear=Milano,+Lombardia,+Italia&amp;t=m&amp;ll=45.47223,9.222035&amp;spn=0.012038,0.021415&amp;z=15&amp;iwloc=A&amp;output=embed"></iframe><br /><small><a href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=it&amp;geocode=&amp;q=mauro+restaurant,+milano&amp;aq=&amp;sll=37.0625,-95.677068&amp;sspn=37.410045,56.513672&amp;ie=UTF8&amp;hq=mauro+restaurant,&amp;hnear=Milano,+Lombardia,+Italia&amp;t=m&amp;ll=45.47223,9.222035&amp;spn=0.012038,0.021415&amp;z=15&amp;iwloc=A" style="color:#0000FF;text-align:left">Visualizzazione ingrandita della mappa</a></small>
 </div>
+

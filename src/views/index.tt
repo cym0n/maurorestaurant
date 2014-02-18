@@ -1,5 +1,5 @@
 <div class="tagline">
-    <center>[% text.title %]</center>
+    <h1>[% text.title %]</h1>
     <div>[% text.text %]</div>
 </div>
 <div class="showcase">
