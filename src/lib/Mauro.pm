@@ -4,6 +4,7 @@ use Dancer2;
 use Dancer2::Plugin::Multilang;
 use Text::Markdown 'markdown';
 use Mauro::Element::Wine;
+use Data::Dumper;
 
 set layout => 'mauro';
 
@@ -42,10 +43,6 @@ get '/' => sub {
 
     my $text = Strehler::Element::Article->get_last_by_date('pagine/homepage', language);
     my %text_data = $text->get_ext_data(language);
-    if($text_data{'text'})
-    {
-        $text_data{'text'} = markdown($text_data{'text'});
-    }
     my %page_title = ( it => 'Cucina tipica milanese', en => 'Typical Milanese cooking' );
 
     my %page_description = ( it => "Ristorante a Milano zona piazzale Susa, la tradizione della cucina tipica milanese si unisce alla modernit&agrave; e all'eleganza del locale. Il menu varia per offrire carne e pesce di prima qualit&agrave;, accompagnati dal meglio delle specialit&agrave; stagionali. Possibilit&agrave; di preventivi per cene aziendali.",
@@ -68,6 +65,7 @@ get '/dove-siamo|/location' => sub
 get '/menu' => sub 
 {
   my %items;
+  my %text_data;
   foreach my $cat ('antipasti', 'primi', 'secondi di carne', 'secondi di pesce', 'desserts')  
   {
     my $plates = Strehler::Element::Article->get_list({category => 'menu/'.$cat, 'entries_per_page' => -1, published => 1, ext => 1});
@@ -75,7 +73,17 @@ get '/menu' => sub
     $tpltag =~ s/ //g;
     $items{$tpltag} = $plates->{'to_view'};
   }
-  template "menu", { title => "Menu", page_description => "Sfoglia il menu di Mauro Restaurant, aggiornato in tempo reale", language => language, %items }; 
+  my $text = Strehler::Element::Article->get_last_by_date('pagine/menu', language);
+  if($text)
+  {
+        %text_data = $text->get_ext_data(language);
+        $text_data{'text'} = markdown($text_data{'text'});
+  }
+  else
+  {
+        %text_data = undef;
+  }
+  template "menu", { title => "Menu", page_description => "Sfoglia il menu di Mauro Restaurant, aggiornato in tempo reale", language => language, intro => \%text_data, %items }; 
 };
 
 get '/menu/:slug' => sub
@@ -153,7 +161,7 @@ get '/per-le-aziende|/for-business' => sub
     my %page_description = ( it => "Sei un'azienza? Mauro Restaurant ha delle opportunit&agrave; per te",
                              en => 'Do you need a place for your business meetings? Mauro Restaurant could be the place!' );
     my $lang = language;
-    my $text = Strehler::Element::Article->get_last_by_date('per le aziende', language);
+    my $text = Strehler::Element::Article->get_last_by_date('pagine/per le aziende', language);
     my %text_data = $text->get_ext_data(language);
     $text_data{'text'} = markdown($text_data{'text'});
     template "page", { title => $page_title{$lang}, page_description => $page_description{$lang}, language => language, content => \%text_data }; 

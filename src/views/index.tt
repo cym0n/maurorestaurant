@@ -1,6 +1,6 @@
 <div class="tagline">
     <h1>[% text.title %]</h1>
-    <div>[% text.text %]</div>
+    <h2>[% text.text %]</h2>
 </div>
 <div class="showcase">
     [% i = 0 %]

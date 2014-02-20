@@ -1,5 +1,6 @@
 [% PROCESS "common/$language/vocabulary.tt" %]
 <h1>Menu</h1>
+[% intro.text %] 
 <h2>[% translate.STARTERS %]</h2>
 [% FOREACH p = antipasti %]
 <div class="menuplate">
