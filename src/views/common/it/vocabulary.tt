@@ -1,6 +1,6 @@
 [% translate = {
     EXTLANG = "it_IT",
-    CLAIM1 =  "Da Mauro la tradizione della cucina tipica milanese, e non solo"
+    CLAIM1 =  "Da Mauro la tradizione della cucina tipica milanese e non solo"
     CLAIM2 = "prodotti di alta qualit&agrave;",
     CLAIM3 = "materie prime di stagione",
     CLAIM4 = "cucina tipica milanese",
