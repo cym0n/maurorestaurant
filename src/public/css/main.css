@@ -70,12 +70,14 @@ h2
 {
     font-weight: bold;
     margin-left: 45px;
-    margin-top: 40px;
+    margin-top: 50px;
     color: #cacaca;
 }
 .head .claims .claim1
 {
-    font-size: 1.2em;
+    font-size: 1.5em;
+    width: 290px;
+    text-align: center;
 }
 .head .claims .claim2
 {
