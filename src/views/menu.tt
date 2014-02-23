@@ -3,9 +3,7 @@
 [% intro.text %] 
 <h2>[% translate.STARTERS %]</h2>
 [% FOREACH p = antipasti %]
-<div class="menuplate">
-<p>[% p.title %][% IF p.text %]<a href="/menu/[% p.slug %]"><img class="torecipe" src="/images/dark-eye_lesssmall.png" /></a>[% END %]</p>
-</div>
+<p class="menuplate">[% p.title %] [% IF p.text %]<a href="/menu/[% p.slug %]"><img class="torecipe" src="/images/dark-eye_lesssmall.png" /></a>[% END %]</p>
 [% END %]
 <h2>[% translate.FIRSTCOURSES %]</h2>
 [% FOREACH p = primi %]
