@@ -5,6 +5,7 @@ use Dancer2;
 use Dancer2::Plugin::DBIC;
 use Strehler::Meta::Tag;
 use Strehler::Meta::Category;
+use Data::Dumper;
 
 has row => (
     is => 'ro',
@@ -85,20 +86,80 @@ sub delete
 sub get_attr
 {
     my $self = shift;
-    my $attr = shift;
-    return $self->row->get_column($attr);
+    my $attribute = shift;
+    my $accessor = $self->can($attribute);
+    if($accessor)
+    {
+        return $self->$accessor($self->row->$attribute);
+    }
+    if($attribute eq 'category')
+    {
+        return $self->row->category->category;
+    }
+    if($attribute eq 'main-title')
+    {
+        return $self->main_title();
+    }
+    if($attribute eq 'category-name')
+    {
+        return $self->get_category_name();
+    }
+    else
+    {
+        if($self->row->result_source->has_column($attribute))
+        {
+            if($self->row->result_source->column_info($attribute)->{'data_type'} eq 'timestamp' || $self->row->result_source->column_info($attribute)->{'data_type'} eq 'date' || $self->row->result_source->column_info($attribute)->{'data_type'} eq 'datetime')
+            {
+                my $ts = $self->row->$attribute;
+                $ts->set_time_zone('UTC');
+                $ts->set_time_zone(config->{'Strehler'}->{'timezone'});
+                return $ts;
+            }
+            else
+            {
+                return $self->row->get_column($attribute);
+            }
+        }
+        else
+        {
+            return undef;
+        }
+    }
 }
 sub get_attr_multilang
 {
     my $self = shift;
-    my $attr = shift;
+    my $attribute = shift;
     my $lang = shift;
+    my $bare = shift;
     my $children = $self->row->can($self->multilang_children());
     return undef if not $children;
     my $content = $self->row->$children->find({'language' => $lang});
     if($content)
     {
-        return $content->get_column($attr);
+        if($content->result_source->has_column($attribute))
+        {
+            my $accessor = $self->can($attribute);
+            if($accessor && ! $bare)
+            {
+                return $self->$accessor($content->$attribute. $lang);
+            }
+            if($content->result_source->column_info($attribute)->{'data_type'} eq 'timestamp' || $content->result_source->column_info($attribute)->{'data_type'} eq 'date' || $content->result_source->column_info($attribute)->{'data_type'} eq 'datetime')
+            {
+                my $ts = $content->$attribute;
+                $ts->set_time_zone('UTC');
+                $ts->set_time_zone(config->{'Strehler'}->{'timezone'});
+                return $ts;
+            }
+            else
+            {
+                return $content->get_column($attribute);
+            }
+        }
+        else
+        {
+            return undef;
+        }
     }
     else
     {
@@ -164,26 +225,10 @@ sub max_category_order
 sub get_basic_data
 {
     my $self = shift;
-    my %data = $self->row->get_columns;
-    if($self->row->can('category'))
+    my %data;
+    foreach my $c ($self->row->result_source->columns)
     {
-        $data{'category'} = $self->row->category->category;
-    }
-    if($self->row->result_source->has_column('published'))
-    {
-        $data{'published'} = $self->get_attr('published');
-    }
-    foreach my $attribute (keys %data)
-    {
-        if($self->row->result_source->column_info($attribute)->{'data_type'} eq 'timestamp')
-        {
-            $data{$attribute} = $self->row->$attribute;
-        }
-        my $accessor = $self->can($attribute);
-        if($accessor)
-        {
-            $data{$attribute} = $self->$accessor($self->row->$attribute);
-        }
+        $data{$c} = $self->get_attr($c);
     }
     $data{'title'} = $self->main_title;
     $data{'category_name'} = $self->get_category_name();
@@ -198,30 +243,13 @@ sub get_ext_data
     my $children = $self->row->can($self->multilang_children());
     if($children)
     {
-        my $multilang_row = $self->row->$children->find({ language => $language });
-        my %multilang_data = $multilang_row->get_columns;
-        foreach my $attribute (keys %multilang_data)
+        foreach my $c ($self->row->$children->result_source->columns)
         {
-            if($attribute ne 'id' && $attribute ne $self->item_type() && $attribute ne 'language')
+            if($c ne 'id' && $c ne $self->item_type() && $c ne 'language')
             {
-                my $accessor = $self->can($attribute);
-                if($accessor)
-                {
-                    $data{$attribute} = $self->$accessor($multilang_data{$attribute}, $language);
-                }
-                else
-                {
-                    if($multilang_row->result_source->column_info($attribute)->{'data_type'} eq 'timestamp')
-                    {
-                        $data{$attribute} = $multilang_row->$attribute;
-                    }
-                    else
-                    {
-                        $data{$attribute} = $multilang_data{$attribute};
-                    }
-                }
+                $data{$c} = $self->get_attr_multilang($c, $language);
             }
-        } 
+        }
     }
     return %data;
 }
@@ -229,11 +257,11 @@ sub get_ext_data
 sub main_title
 {
     my $self = shift;
-    if($self->row->result_source->has_column('title'))
+    if($self->get_attr('title'))
     {
         return $self->get_attr('title');
     }
-    elsif($self->row->result_source->has_column('name'))
+    elsif($self->get_attr('name'))
     {
         return $self->get_attr('name');
     }   
@@ -582,7 +610,7 @@ sub get_form_data
     my $data = \%columns;
     foreach my $attribute (keys %columns)
     {
-        if($el_row->result_source->column_info($attribute)->{'data_type'} eq 'timestamp')
+        if($el_row->result_source->column_info($attribute)->{'data_type'} eq 'timestamp' || $el_row->result_source->column_info($attribute)->{'data_type'} eq 'date' || $el_row->result_source->column_info($attribute)->{'data_type'} eq 'datetime')
         {
             $data->{$attribute} = $el_row->$attribute;
         }
@@ -613,7 +641,7 @@ sub get_form_data
                     foreach my $attribute (keys %columns)
                     {
                         my $data_to_save;
-                        if($ml->result_source->column_info($k)->{'data_type'} eq 'timestamp')
+                        if($ml->result_source->column_info($k)->{'data_type'} eq 'timestamp' || $ml->result_source->column_info($k)->{'data_type'} eq 'date' || $ml->result_source->column_info($k)->{'data_type'} eq 'datetime')
                         {
                             $data_to_save = $ml->$attribute;
                         }
@@ -644,7 +672,16 @@ sub save_form
         {
             if($form->param_value($column))
             {
-                $el_data->{$column} = $form->param_value($column);
+                if(ref $form->param_value($column) eq 'DateTime')
+                {
+                    my $ts = $form->param_value($column);
+                    $ts->set_time_zone('UTC');
+                    $el_data->{$column} = $ts;
+                }
+                else
+                {
+                    $el_data->{$column} = $form->param_value($column);
+                }
             }
             else
             {
@@ -694,9 +731,18 @@ sub save_form
             {
                 if($form->param_value($multicolumn . '_' . $lang))
                 {
-                    $multi_el_data->{$multicolumn} = $form->param_value($multicolumn . '_' . $lang);
-                    $to_write = 1;
-                }    
+                    if(ref $form->param_value($multicolumn . '_' . $lang) eq 'DateTime')
+                    {
+                        my $ts = $form->param_value($multicolumn . '_' . $lang);
+                        $ts->set_time_zone('UTC');
+                        $multi_el_data->{$multicolumn} = $ts;
+                    }
+                    else
+                    {
+                        $multi_el_data->{$multicolumn} = $form->param_value($multicolumn . '_' . $lang);
+                        $to_write = 1;
+                    }    
+                }
                 else
                 {
                     my $accessor = $self->can('save_' . $multicolumn);

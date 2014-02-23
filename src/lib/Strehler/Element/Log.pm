@@ -28,24 +28,13 @@ sub write
     my $action = shift;
     my $entity_type = shift;
     my $entity_id = shift;
-    my $log_row = schema->resultset($self->ORMObj())->create({ user => $user, action => $action, entity_type => $entity_type, entity_id => $entity_id });
+    my $log_row = schema->resultset($self->ORMObj())->create({ user => $user, action => $action, entity_type => $entity_type, entity_id => $entity_id, timestamp => DateTime->now() });
 }
 
 sub main_title
 {
     my $self = shift;
-    return "[" . $self->timestamp() . "] " . $self->get_attr('action') . " " . $self->get_attr('entity_type');
-}
-sub timestamp
-{
-    my $self = shift;
-    my $strp = DateTime::Format::Strptime->new(
-        pattern   => '%d/%m/%Y %T',
-        locale    => 'it_IT',
-        time_zone => 'Europe/Rome',
-    );
-    return $self->row->timestamp->set_formatter($strp);
-
+    return "[" . $self->get_attr('timestamp') . "] " . $self->get_attr('action') . " " . $self->get_attr('entity_type');
 }
 
 1;
