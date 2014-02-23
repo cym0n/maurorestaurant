@@ -21,7 +21,7 @@ sub winery
 {
     my $self = shift;
     my %data;
-    if($self->get_attr('winery') && $self->row->winery)
+    if($self->row->winery)
     {
         $data{'name'} = $self->row->winery->name;
         $data{'link'} = $self->row->winery->link;
