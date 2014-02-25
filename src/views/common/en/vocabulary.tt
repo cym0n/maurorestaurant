@@ -9,5 +9,12 @@
     TIMETABLE3 = "closed on saturday at lunch and sunday",
     PHONE = "Phone +39 02 39833858",
     WINERY = "Winery"
+    STARTERS = "Starters",
+    FIRSTCOURSES = "First Courses",
+    MAINCOURSES_MEAT = "Meat Dishes",
+    MAINCOURSES_FISH = "Main Courses of Fish",
+    MAINCOURSES = "Main courses",
+    SIDES = "Contorni",
+    DESSERTS = "Homemade Desserts",
 }
 %]

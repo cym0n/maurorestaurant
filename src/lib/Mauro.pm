@@ -68,7 +68,7 @@ get '/menu' => sub
   my %text_data;
   foreach my $cat ('antipasti', 'primi', 'secondi di carne', 'secondi di pesce', 'desserts')  
   {
-    my $plates = Strehler::Element::Article->get_list({category => 'menu/'.$cat, 'entries_per_page' => -1, published => 1, ext => 1});
+    my $plates = Strehler::Element::Article->get_list({category => 'menu/'.$cat, 'entries_per_page' => -1, published => 1, ext => 1, language => language});
     my $tpltag = $cat;
     $tpltag =~ s/ //g;
     $items{$tpltag} = $plates->{'to_view'};
@@ -77,13 +77,18 @@ get '/menu' => sub
   if($text)
   {
         %text_data = $text->get_ext_data(language);
-        $text_data{'text'} = markdown($text_data{'text'});
+        $text_data{'text'} = markdown($text_data{'text'}) if $text_data{'text'};
   }
   else
   {
         %text_data = undef;
   }
-  template "menu", { title => "Menu", page_description => "Sfoglia il menu di Mauro Restaurant, aggiornato in tempo reale", language => language, intro => \%text_data, %items }; 
+  my %page_title = ( it => 'Menu',
+                     en => 'Menu' );
+  my %page_description = ( it => 'Sfoglia il menu di Mauro Restaurant, aggiornato in tempo reale',
+                           en => 'Browse Mauro Restaurant menu, daily updated' );
+  my $lang = language;
+  template "menu", { title => $page_title{$lang}, page_description => $page_description{$lang}, language => language, intro => \%text_data, %items }; 
 };
 
 get '/menu/:slug' => sub
