@@ -6,7 +6,7 @@
     CLAIM1 = "<em>milanese</em> tradition",
     TIMETABLE1 = "from 12:00 to 14:30",
     TIMETABLE2 = "from 19:00 to 22:30",
-    TIMETABLE3 = "closed on saturday at lunch and sunday",
+    TIMETABLE3 = "closed on Saturday at lunch and Sunday",
     PHONE = "Phone +39 02 39833858",
     WINERY = "Winery"
     STARTERS = "Starters",
