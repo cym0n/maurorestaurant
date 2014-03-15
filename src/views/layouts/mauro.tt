@@ -68,9 +68,8 @@
         </div>
         <div class="footer">
             <span>Mauro Restaurant - Via Gaspare
-                Gozzi 6, Milano - Zona piazzale Susa - Telefono +39 02 39833858 Mail: <a href="mailto:mforna79@gmail.com" target="_blank">mforna79@gmail.com</a></span>
+                Gozzi 6, Milano - Zona piazzale Susa - Telefono +39 02 39833858 - Mail: <a href="mailto:mforna79@gmail.com" target="_blank">mforna79@gmail.com</a></span>
             <!--span>P.IVA: xxxxxxxxxxxxxxx</span-->
-            <span>powered by PerlDancer2</span>
         </div>
     </div>
 [% IF google_monitor %]

@@ -46,7 +46,7 @@ get '/' => sub {
     my %page_title = ( it => 'Cucina tipica milanese', en => 'Typical Milanese cooking' );
 
     my %page_description = ( it => "Ristorante a Milano zona piazzale Susa, la tradizione della cucina tipica milanese si unisce alla modernit&agrave; e all'eleganza del locale. Il menu varia per offrire carne e pesce di prima qualit&agrave;, accompagnati dal meglio delle specialit&agrave; stagionali. Possibilit&agrave; di preventivi per cene aziendali.",
-                             en => 'Mauro Restaurant, restaurant in Milan, traditional seasonal cooking' );
+                             en => 'Restaurant in Milan where the traditional regional cooking meets the modernity and elegance of the local. Menu available in English.' );
     my $lang = language;
 
     template "index", { title => $page_title{$lang}, page_description => $page_description{$lang}, language => $lang, 
@@ -170,6 +170,15 @@ get '/per-le-aziende|/for-business' => sub
     my %text_data = $text->get_ext_data(language);
     $text_data{'text'} = markdown($text_data{'text'});
     template "page", { title => $page_title{$lang}, page_description => $page_description{$lang}, language => language, content => \%text_data }; 
+};
+get '/nostri-social|/social-networks' => sub
+{
+    my %page_title = ( it => 'I nostri social',
+                       en => 'Social Networks' );
+    my %page_description = ( it => "I social networks dove puoi trovare Mauro Restaurant",
+                             en => 'Social Network where Mauro Restaurant is' );
+    my $lang = language;
+    template "social.tt", { title => $page_title{$lang}, page_description => $page_description{$lang}, language => $lang }; 
 };
 
 

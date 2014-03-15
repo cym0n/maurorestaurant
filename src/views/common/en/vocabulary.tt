@@ -3,7 +3,7 @@
     CLAIM4 = "meat and fish",
     CLAIM2 = "seasonal cooking",
     CLAIM3 = "high quality products",
-    CLAIM1 = "<em>milanese</em> tradition",
+    CLAIM1 = "<em>Milanese</em> tradition",
     TIMETABLE1 = "from 12:00 to 14:30",
     TIMETABLE2 = "from 19:00 to 22:30",
     TIMETABLE3 = "closed on Saturday at lunch and Sunday",
