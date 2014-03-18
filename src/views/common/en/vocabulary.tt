@@ -12,7 +12,7 @@
     STARTERS = "Starters",
     FIRSTCOURSES = "First Courses",
     MAINCOURSES_MEAT = "Meat Dishes",
-    MAINCOURSES_FISH = "Main Courses of Fish",
+    MAINCOURSES_FISH = "Fish Dishes",
     MAINCOURSES = "Main courses",
     SIDES = "Contorni",
     DESSERTS = "Homemade Desserts",
