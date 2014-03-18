@@ -18,7 +18,18 @@ sub metaclass_data
     return $element_conf{$param};
 }
 
-
+sub make_select
+{
+    my $self = shift;
+    my $list = $self->get_list( { 'order_by' => 'name', order => 'asc'} );
+    my @category_values_for_select;
+    push @category_values_for_select, { value => undef, label => "-- seleziona --" }; 
+    for(@{$list->{to_view}})
+    {
+        push @category_values_for_select, { value => $_->{'id'}, label => $_->{'title'} }
+    }
+    return \@category_values_for_select;
+}
 
 
 1;
