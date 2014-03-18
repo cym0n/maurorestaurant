@@ -140,24 +140,57 @@ get '/business-lunch' => sub
 
 get '/vini/vini-rossi|/wine/red-wine' => sub
 {
-    my %page_title = ( it => 'Vini rossi',
-                       en => 'Red wine' );
+    my %page_title = ( it => 'Vini Rossi',
+                       en => 'Red Wine' );
     my %page_description = ( it => "Questa la selezione di vini rossi offerta da Mauro Restaurant",
                              en => "These are the red wines offered by Mauro Restaurant" );
     my $lang = language;
-    my $wines = Mauro::Element::Wine->get_list({category => 'vini/vini rossi', 'entries_per_page' => -1, published => 1});
-    template "wines-list", { title => $page_title{$lang}, page_description => $page_description{$lang}, wines_type => "Vini rossi", language => language, wines => $wines->{to_view} };
+    my $wines = Mauro::Element::Wine->get_list({category => 'vini/vini rossi', 'entries_per_page' => -1, published => 1, order_by => 'name', order => 'ASC'});
+    template "wines-list", { title => $page_title{$lang}, page_description => $page_description{$lang},  language => language, wines => $wines->{to_view} };
 };
 get '/vini/vini-bianchi|/wine/white-wine' => sub
 {
-    my %page_title = ( it => 'Vini bianchi',
-                       en => 'White wine' );
+    my %page_title = ( it => 'Vini Bianchi',
+                       en => 'White Wine' );
     my %page_description = ( it => "Questa la selezione di vini bianchi offerta da Mauro Restaurant",
                              en => "These are the white wines offered by Mauro Restaurant" );
     my $lang = language;
 
-    my $wines = Mauro::Element::Wine->get_list({category => 'vini/vini bianchi', 'entries_per_page' => -1, published => 1});
-    template "wines-list", { title => $page_title{$lang}, page_description => $page_description{$lang}, wines_type => "Vini bianchi", language => language, wines => $wines->{to_view} };
+    my $wines = Mauro::Element::Wine->get_list({category => 'vini/vini bianchi', 'entries_per_page' => -1, published => 1, order_by => 'name', order => 'ASC'});
+    template "wines-list", { title => $page_title{$lang}, page_description => $page_description{$lang}, language => language, wines => $wines->{to_view} };
+};
+get '/vini/spumanti-italiani|/wine/italian-spumante' => sub
+{
+    my %page_title = ( it => 'Spumanti Italiani',
+                       en => 'Italian Spumante' );
+    my %page_description = ( it => "Questa la selezione di spumanti italiani offerta da Mauro Restaurant",
+                             en => "These are the italian spumante offered by Mauro Restaurant" );
+    my $lang = language;
+
+    my $wines = Mauro::Element::Wine->get_list({category => 'vini/spumanti italiani', 'entries_per_page' => -1, published => 1, order_by => 'name', order => 'ASC'});
+    template "wines-list", { title => $page_title{$lang}, page_description => $page_description{$lang}, language => language, wines => $wines->{to_view} };
+};
+get '/vini/champagne|wine/champagne' => sub
+{
+    my %page_title = ( it => 'Champagne',
+                       en => 'Champagne' );
+    my %page_description = ( it => "Questa la selezione di vini bianchi offerta da Mauro Restaurant",
+                             en => "These are the champagne offered by Mauro Restaurant" );
+    my $lang = language;
+
+    my $wines = Mauro::Element::Wine->get_list({category => 'vini/champagne', 'entries_per_page' => -1, published => 1, order_by => 'name', order => 'ASC'});
+    template "wines-list", { title => $page_title{$lang}, page_description => $page_description{$lang}, language => language, wines => $wines->{to_view} };
+};
+get '/vini/vini-rosati|wine/rosee-wine' => sub
+{
+    my %page_title = ( it => 'Vini Rosati',
+                       en => 'Rosee Wine' );
+    my %page_description = ( it => "Questa la selezione di vini rosati offerta da Mauro Restaurant",
+                             en => "These are the rosee wines offered by Mauro Restaurant" );
+    my $lang = language;
+
+    my $wines = Mauro::Element::Wine->get_list({category => 'vini/vini rosati', 'entries_per_page' => -1, published => 1, order_by => 'name', order => 'ASC'});
+    template "wines-list", { title => $page_title{$lang}, page_description => $page_description{$lang}, language => language, wines => $wines->{to_view} };
 };
 get '/per-le-aziende|/for-business' => sub
 {
