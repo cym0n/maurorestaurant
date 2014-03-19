@@ -21,7 +21,7 @@ sub metaclass_data
 sub make_select
 {
     my $self = shift;
-    my $list = $self->get_list( { 'order_by' => 'name', order => 'asc'} );
+    my $list = $self->get_list( { 'order_by' => 'name', order => 'asc', entries_per_page => -1} );
     my @category_values_for_select;
     push @category_values_for_select, { value => undef, label => "-- seleziona --" }; 
     for(@{$list->{to_view}})
