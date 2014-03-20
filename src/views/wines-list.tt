@@ -1,5 +1,5 @@
 [% PROCESS "common/$language/vocabulary.tt" %]
-<h1>[% wines_type %]</h1>
+<h1>[% title %]</h1>
 [% FOREACH w = wines %]
 <div class="wine">
     <div class="name">[% w.name %]</div>
