@@ -43,7 +43,6 @@ get '/' => sub {
 
     my $text = Strehler::Element::Article->get_last_by_date('pagine/homepage', language);
     my %text_data = $text->get_ext_data(language);
-    $text_data{'text'} = markdown $text_data{'text'}
     my %page_title = ( it => 'Cucina tipica milanese', en => 'Typical Milanese cooking' );
 
     my %page_description = ( it => "Ristorante a Milano zona piazzale Susa, la tradizione della cucina tipica milanese si unisce alla modernit&agrave; e all'eleganza del locale. Il menu varia per offrire carne e pesce di prima qualit&agrave;, accompagnati dal meglio delle specialit&agrave; stagionali. Possibilit&agrave; di preventivi per cene aziendali.",
