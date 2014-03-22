@@ -6,6 +6,7 @@
     <title>Mauro Restaurant - [% title %]</title>
     <meta name="description" content="[% page_description %]" />
     <link rel="stylesheet" href="[% request.uri_base %]/css/main.css" />
+    <link rel="stylesheet" href="[% request.uri_base %]/css/responsiveslides.css" />
     <meta property="og:url" content="http://www.maurorestaurant.it" />
     <meta property="og:type" content="website"/>
     <meta property="og:title" content="Mauro Restaurant"/>
@@ -13,6 +14,7 @@
     <meta name="keywords" content="Mauro restaurant, ristorante milano, ristorante piazzale susa, cucina tipica milanese, ristorante via gozzi, carne, consigliato su tripadvisor, cucina tradizionale milanese, convenzioni aziendali, business lunch" />
     <script src="[% request.uri_base %]/js/jquery-1.9.1.js"></script>
     <script src="[% request.uri_base %]/js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="[% request.uri_base %]/js/responsiveslides.min.js"></script>
     [% IF not wines_open %]
     <script>
       $(function() {
@@ -23,6 +25,14 @@
       });
     </script>
     [% END %]
+    <script>
+     $(function() {
+         $(".rslides").responsiveSlides({
+            auto: false,
+            pager: true,
+         });
+     });
+    </script>
 </head>
 <body>
     <div id="fb-root"></div>

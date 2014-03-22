@@ -179,6 +179,14 @@ get '/nostri-social|/social-networks' => sub
     my $lang = language;
     template "social.tt", { title => $page_title{$lang}, page_description => $page_description{$lang}, language => $lang }; 
 };
+get '/gallery' => sub
+{
+    my $images_list = Strehler::Element::Image->get_list({category => 'gallery', 'entries_per_page' => -1});
+    my @images = @{$images_list->{'to_view'}};
+   
+    template "gallery.tt", { language => language, images => \@images};
+
+};
 
 
 sub wines
