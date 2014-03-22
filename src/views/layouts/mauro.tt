@@ -13,14 +13,16 @@
     <meta name="keywords" content="Mauro restaurant, ristorante milano, ristorante piazzale susa, cucina tipica milanese, ristorante via gozzi, carne, consigliato su tripadvisor, cucina tradizionale milanese, convenzioni aziendali, business lunch" />
     <script src="[% request.uri_base %]/js/jquery-1.9.1.js"></script>
     <script src="[% request.uri_base %]/js/jquery-ui-1.10.3.custom.min.js"></script>
+    [% IF not wines_open %]
     <script>
       $(function() {
         $( "#wines-menu" ).accordion({
             collapsible: true,
             active: false
+        });
       });
-  });
-  </script>
+    </script>
+    [% END %]
 </head>
 <body>
     <div id="fb-root"></div>

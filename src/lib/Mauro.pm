@@ -140,57 +140,23 @@ get '/business-lunch' => sub
 
 get '/vini/vini-rossi|/wine/red-wine' => sub
 {
-    my %page_title = ( it => 'Vini Rossi',
-                       en => 'Red Wine' );
-    my %page_description = ( it => "Questa la selezione di vini rossi offerta da Mauro Restaurant",
-                             en => "These are the red wines offered by Mauro Restaurant" );
-    my $lang = language;
-    my $wines = Mauro::Element::Wine->get_list({category => 'vini/vini rossi', 'entries_per_page' => -1, published => 1, order_by => 'name', order => 'ASC'});
-    template "wines-list", { title => $page_title{$lang}, page_description => $page_description{$lang},  language => language, wines => $wines->{to_view} };
+    template "wines-list", wines('vini rossi', language);
 };
 get '/vini/vini-bianchi|/wine/white-wine' => sub
 {
-    my %page_title = ( it => 'Vini Bianchi',
-                       en => 'White Wine' );
-    my %page_description = ( it => "Questa la selezione di vini bianchi offerta da Mauro Restaurant",
-                             en => "These are the white wines offered by Mauro Restaurant" );
-    my $lang = language;
-
-    my $wines = Mauro::Element::Wine->get_list({category => 'vini/vini bianchi', 'entries_per_page' => -1, published => 1, order_by => 'name', order => 'ASC'});
-    template "wines-list", { title => $page_title{$lang}, page_description => $page_description{$lang}, language => language, wines => $wines->{to_view} };
+    template "wines-list", wines('vini bianchi', language);
 };
 get '/vini/spumanti-italiani|/wine/italian-spumante' => sub
 {
-    my %page_title = ( it => 'Spumanti Italiani',
-                       en => 'Italian Spumante' );
-    my %page_description = ( it => "Questa la selezione di spumanti italiani offerta da Mauro Restaurant",
-                             en => "These are the italian spumante offered by Mauro Restaurant" );
-    my $lang = language;
-
-    my $wines = Mauro::Element::Wine->get_list({category => 'vini/spumanti italiani', 'entries_per_page' => -1, published => 1, order_by => 'name', order => 'ASC'});
-    template "wines-list", { title => $page_title{$lang}, page_description => $page_description{$lang}, language => language, wines => $wines->{to_view} };
+    template "wines-list", wines('spumanti italiani', language);
 };
 get '/vini/champagne|wine/champagne' => sub
 {
-    my %page_title = ( it => 'Champagne',
-                       en => 'Champagne' );
-    my %page_description = ( it => "Questa la selezione di vini bianchi offerta da Mauro Restaurant",
-                             en => "These are the champagne offered by Mauro Restaurant" );
-    my $lang = language;
-
-    my $wines = Mauro::Element::Wine->get_list({category => 'vini/champagne', 'entries_per_page' => -1, published => 1, order_by => 'name', order => 'ASC'});
-    template "wines-list", { title => $page_title{$lang}, page_description => $page_description{$lang}, language => language, wines => $wines->{to_view} };
+    template "wines-list", wines('champagne', language);
 };
 get '/vini/vini-rosati|wine/rosee-wine' => sub
 {
-    my %page_title = ( it => 'Vini Rosati',
-                       en => 'Rosee Wine' );
-    my %page_description = ( it => "Questa la selezione di vini rosati offerta da Mauro Restaurant",
-                             en => "These are the rosee wines offered by Mauro Restaurant" );
-    my $lang = language;
-
-    my $wines = Mauro::Element::Wine->get_list({category => 'vini/vini rosati', 'entries_per_page' => -1, published => 1, order_by => 'name', order => 'ASC'});
-    template "wines-list", { title => $page_title{$lang}, page_description => $page_description{$lang}, language => language, wines => $wines->{to_view} };
+    template "wines-list", wines('vini rosati', language);
 };
 get '/per-le-aziende|/for-business' => sub
 {
@@ -215,4 +181,50 @@ get '/nostri-social|/social-networks' => sub
 };
 
 
+sub wines
+{
+    my $wine_type = shift;
+    my $lang = shift;
+    my %page_titles = ( 'vini rossi' =>
+                        { 'it' => 'Vini Rossi',
+                          'en' => 'Red Wine' },
+                        'vini bianchi' => 
+                        { 'it' => 'Vini Bianchi',
+                          'en' => 'White Wine' },
+                        'vini rosati' => 
+                        { 'it' => 'Vini Rosati',
+                          'en' => 'Rosee Wine' },
+                        'spumanti italiani' =>
+                        { 'it' => 'Spumanti Italiani',
+                          'en' => 'Italian Spumante' },
+                        'champagne' => 
+                        { 'it' => 'Champagne',
+                          'en' => 'Champagne' } );
+    my %page_description_names = ( 'vini rossi' =>
+                                    { 'it' => 'vini rossi',
+                                      'en' => 'red wines' },
+                                    'vini bianchi' => 
+                                    { 'it' => 'vini bianchi',
+                                      'en' => 'white wines' },
+                                    'vini rosati' => 
+                                    { 'it' => 'vini rosati',
+                                      'en' => 'rosee wine' },
+                                    'spumanti italiani' =>
+                                    { 'it' => 'spumanti italiani',
+                                      'en' => 'italian spumante' },
+                                    'champagne' => 
+                                    { 'it' => 'champagne',
+                                      'en' => 'champagne' } );
+    my $page_description;
+    if($lang eq 'it')
+    {
+        $page_description = "Questa la selezione di " . $page_description_names{$wine_type}{'it'} . " offerta da Mauro Restaurant";
+    }
+    elsif($lang eq 'en')
+    {
+        $page_description = "These are the " . $page_description_names{$wine_type}{'en'} . " offered by Mauro Restaurant";
+    }
+    my $wines = Mauro::Element::Wine->get_list({category => 'vini/' . $wine_type, 'entries_per_page' => -1, published => 1, order_by => ['region', 'name'], order => 'ASC'});
+    return { title => $page_titles{$wine_type}{$lang}, description => $page_description, language => $lang, wines => $wines->{to_view}, wines_open => 1 };                     
+}
 1;
