@@ -15,8 +15,6 @@ elements:
     - type: Block
       tag: div
       id: tags-place
-      attributes:
-        class: text label
     - name: name
       label: Nome
       attributes: 
@@ -32,7 +30,7 @@ elements:
       label: Regione
       attributes: 
         class: span8
-    - type: Strehler::EntitySelect
+    - type: '+Strehler::FormFu::Element::EntitySelect'
       name: winery
       element: Mauro::Element::Winery
       label: Cantina

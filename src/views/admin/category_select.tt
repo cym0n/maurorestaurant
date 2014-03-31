@@ -1,3 +1,0 @@
-[% FOREACH cat IN categories %]
-<option value="[% cat.value %]">[% cat.label %]</option>
-[% END %]

@@ -1,7 +1,7 @@
 package Mauro::Admin;
 
 use Dancer2;
-use Dancer2::Plugin::Strehler;
+use Strehler::Dancer2::Plugin;
 use Mauro::Element::Winery;
 
 any '/winery/list' => sub
