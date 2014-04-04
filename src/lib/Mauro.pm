@@ -158,10 +158,10 @@ get '/vini/vini-rosati|wine/rosee-wine' => sub
 {
     template "wines-list", wines('vini rosati', language);
 };
-get '/per-le-aziende|/for-business' => sub
+get '/eventi-aziende|/events-business' => sub
 {
-    my %page_title = ( it => 'Per le aziende',
-                       en => 'For business' );
+    my %page_title = ( it => 'Eventi &#47; Aziende',
+                       en => 'Events &#47; Business' );
     my %page_description = ( it => "Sei un'azienza? Mauro Restaurant ha delle opportunit&agrave; per te",
                              en => 'Do you need a place for your business meetings? Mauro Restaurant could be the place!' );
     my $lang = language;
