@@ -149,7 +149,7 @@ get '/vini/vini-bianchi|/wine/white-wine' => sub
 };
 get '/vini/spumanti-italiani|/wine/italian-spumante' => sub
 {
-    template "italian-wines-list", italian_wines('spumanti italiani', language);
+    template "wines-list", wines('spumanti italiani', language);
 };
 get '/vini/champagne|wine/champagne' => sub
 {
@@ -157,7 +157,7 @@ get '/vini/champagne|wine/champagne' => sub
 };
 get '/vini/vini-rosati|wine/rosee-wine' => sub
 {
-    template "wines-list", wines('vini rosati', language);
+    template "italian-wines-list", italian_wines('vini rosati', language);
 };
 get '/eventi-aziende|/events-business' => sub
 {
