@@ -64,3 +64,4 @@ Strehler:
             label: Regioni
             class: Mauro::Element::ItalianRegion
             form: forms/myadmin/region.yml
+            ordered: 1
