@@ -145,11 +145,11 @@ get '/vini/vini-rossi|/wine/red-wine' => sub
 };
 get '/vini/vini-bianchi|/wine/white-wine' => sub
 {
-    template "wines-list", wines('vini bianchi', language);
+    template "italian-wines-list", italian_wines('vini bianchi', language);
 };
 get '/vini/spumanti-italiani|/wine/italian-spumante' => sub
 {
-    template "wines-list", wines('spumanti italiani', language);
+    template "italian-wines-list", italian_wines('spumanti italiani', language);
 };
 get '/vini/champagne|wine/champagne' => sub
 {
@@ -248,6 +248,7 @@ sub italian_wines
             push @{$data->{$w->{region}}}, $w;
         }
     }
+    $data->{language} = $lang;
     return $data;
 }
 1;
