@@ -159,6 +159,10 @@ get '/vini/vini-rosati|wine/rosee-wine' => sub
 {
     template "italian-wines-list", italian_wines('vini rosati', language);
 };
+get '/vini/vini-dessert|wine/dessert-wine' => sub
+{
+    template "wines-list", wines('vini da dessert', language);
+};
 get '/eventi-aziende|/events-business' => sub
 {
     my %page_title = ( it => 'Eventi &#47; Aziende',
@@ -198,6 +202,9 @@ sub wines
                         'spumanti italiani' =>
                         { 'it' => 'Spumanti Italiani',
                           'en' => 'Italian Spumante' },
+                        'vini da dessert' =>
+                        { 'it' => 'Vini da dessert',
+                          'en' => 'Dessert Wines' },
                         'champagne' => 
                         { 'it' => 'Champagne',
                           'en' => 'Champagne' } );
@@ -213,6 +220,9 @@ sub wines
                                     'spumanti italiani' =>
                                     { 'it' => 'spumanti italiani',
                                       'en' => 'italian spumante' },
+                                    'vini da dessert' =>
+                                    { 'it' => 'vini da dessert',
+                                      'en' => 'dessert wine' },
                                     'champagne' => 
                                     { 'it' => 'champagne',
                                       'en' => 'champagne' } );
