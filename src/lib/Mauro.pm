@@ -4,6 +4,7 @@ use Dancer2;
 use Dancer2::Plugin::Multilang;
 use Text::Markdown 'markdown';
 use Mauro::Element::Wine;
+use Mauro::Element::ItalianRegion;
 use Data::Dumper;
 
 set layout => 'mauro';
@@ -140,7 +141,7 @@ get '/business-lunch' => sub
 
 get '/vini/vini-rossi|/wine/red-wine' => sub
 {
-    template "wines-list", wines('vini rossi', language);
+    template "italian-wines-list", italian_wines('vini rossi', language);
 };
 get '/vini/vini-bianchi|/wine/white-wine' => sub
 {
@@ -226,5 +227,27 @@ sub wines
     }
     my $wines = Mauro::Element::Wine->get_list({category => 'vini/' . $wine_type, 'entries_per_page' => -1, published => 1, order_by => ['region', 'name'], order => 'ASC'});
     return { title => $page_titles{$wine_type}{$lang}, description => $page_description, language => $lang, wines => $wines->{to_view}, wines_open => 1 };                     
+}
+sub italian_wines
+{
+    my $wine_type = shift;
+    my $lang = shift;
+    my $data = wines($wine_type, $lang);
+    my $regions_configured = Mauro::Element::ItalianRegion->get_list({ order_by => 'display_order', order => 'ASC', entries_per_page => -1 });
+    my $regions;
+    foreach my $r (@{$regions_configured->{to_view}})
+    {
+        push @{$regions}, $r->{name};
+        $data->{$r->{name}} = ();
+    }
+    $data->{regions} = $regions;
+    foreach my $w (@{$data->{'wines'}})
+    {
+        if($w && $w->{region})
+        {
+            push @{$data->{$w->{region}}}, $w;
+        }
+    }
+    return $data;
 }
 1;
