@@ -36,6 +36,12 @@ elements:
       label: Cantina
       attributes: 
         class: span8
+    - type: '+Strehler::FormFu::Element::EntitySelect'
+      name: italian_region
+      element: Mauro::Element::ItalianRegion
+      label: Regione Italiana
+      attributes: 
+        class: span8
     - name: save
       type: Block
       tag: button
