@@ -69,7 +69,7 @@ get '/menu' => sub
   my %text_data;
   foreach my $cat ('antipasti', 'primi', 'secondi di carne', 'secondi di pesce', 'desserts')  
   {
-    my $plates = Strehler::Element::Article->get_list({category => 'menu/'.$cat, 'entries_per_page' => -1, published => 1, ext => 1, language => language, order_by => 'display_order'});
+    my $plates = Strehler::Element::Article->get_list({category => 'menu/'.$cat, 'entries_per_page' => -1, published => 1, ext => 1, language => language, order_by => 'display_order', order => 'asc'});
     my $tpltag = $cat;
     $tpltag =~ s/ //g;
     $items{$tpltag} = $plates->{'to_view'};
