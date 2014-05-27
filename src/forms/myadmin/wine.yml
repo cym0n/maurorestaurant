@@ -1,20 +1,8 @@
 attributes:
     class: well 
 elements:
-    - type: Select
-      id: category_selector
-      name: category
-      label: categoria
-      constraints:
-        type: Required
-        message: 'Categoria necessaria<br />'
-    - type: Select
-      name: subcategory
-      label: sottocategoria
-      id: subcat
-    - type: Block
-      tag: div
-      id: tags-place
+    - type: '+Strehler::FormFu::Element::Category'
+    - type: '+Strehler::FormFu::Element::Tags'
     - name: name
       label: Nome
       attributes: 

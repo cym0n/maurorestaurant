@@ -8,11 +8,7 @@ elements:
       constraints:
         type: Required
         message: 'Nome necessario<br />'
-    - type: Fieldset
-      elements: 
-          - name: display_order
-            id: order
-            label: Order
+    - type: '+Strehler::FormFu::Element::DisplayOrder'
     - name: save
       type: Block
       tag: button
