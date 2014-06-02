@@ -30,6 +30,7 @@
          $(".rslides").responsiveSlides({
             auto: false,
             pager: true,
+            manualControls: '#unique-pager'
          });
      });
     </script>
