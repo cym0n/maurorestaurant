@@ -76,6 +76,12 @@ __PACKAGE__->table("WINES");
   data_type: 'tinyint'
   is_nullable: 1
 
+=head2 italian_region
+
+  data_type: 'integer'
+  is_foreign_key: 1
+  is_nullable: 1
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -93,6 +99,8 @@ __PACKAGE__->add_columns(
   { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
   "published",
   { data_type => "tinyint", is_nullable => 1 },
+  "italian_region",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
@@ -129,6 +137,26 @@ __PACKAGE__->belongs_to(
   },
 );
 
+=head2 italian_region
+
+Type: belongs_to
+
+Related object: L<Mauro::MauroDB::Result::ItalianRegion>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "italian_region",
+  "Mauro::MauroDB::Result::ItalianRegion",
+  { id => "italian_region" },
+  {
+    is_deferrable => 1,
+    join_type     => "LEFT",
+    on_delete     => "RESTRICT",
+    on_update     => "RESTRICT",
+  },
+);
+
 =head2 winery
 
 Type: belongs_to
@@ -150,8 +178,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07037 @ 2014-02-15 12:23:32
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:P2NuiqpRIA61pDvDlhPu2g
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-04-06 16:29:42
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Ck2Le/jd1a5iSvBXh/cn/g
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

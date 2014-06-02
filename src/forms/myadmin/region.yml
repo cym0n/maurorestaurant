@@ -1,0 +1,19 @@
+attributes:
+    class: well 
+elements:
+    - name: name
+      label: Nome
+      attributes: 
+        class: span8
+      constraints:
+        type: Required
+        message: 'Nome necessario<br />'
+    - type: '+Strehler::FormFu::Element::DisplayOrder'
+    - name: save
+      type: Block
+      tag: button
+      content: Submit
+      attributes:
+        type: submit
+        class: btn btn-primary
+  

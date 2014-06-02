@@ -1,12 +1,12 @@
 use utf8;
-package Site::SiteDB::Result::Tag;
+package Mauro::MauroDB::Result::ItalianRegion;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
 =head1 NAME
 
-Site::SiteDB::Result::Tag
+Mauro::MauroDB::Result::ItalianRegion
 
 =cut
 
@@ -27,11 +27,11 @@ use base 'DBIx::Class::Core';
 
 __PACKAGE__->load_components("InflateColumn::DateTime");
 
-=head1 TABLE: C<TAGS>
+=head1 TABLE: C<ITALIAN_REGIONS>
 
 =cut
 
-__PACKAGE__->table("TAGS");
+__PACKAGE__->table("ITALIAN_REGIONS");
 
 =head1 ACCESSORS
 
@@ -41,34 +41,26 @@ __PACKAGE__->table("TAGS");
   is_auto_increment: 1
   is_nullable: 0
 
-=head2 tag
+=head2 name
 
   data_type: 'varchar'
   is_nullable: 1
-  size: 120
+  size: 200
 
-=head2 item_id
+=head2 display_order
 
   data_type: 'integer'
   is_nullable: 1
-
-=head2 item_type
-
-  data_type: 'varchar'
-  is_nullable: 1
-  size: 20
 
 =cut
 
 __PACKAGE__->add_columns(
   "id",
   { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
-  "tag",
-  { data_type => "varchar", is_nullable => 1, size => 120 },
-  "item_id",
+  "name",
+  { data_type => "varchar", is_nullable => 1, size => 200 },
+  "display_order",
   { data_type => "integer", is_nullable => 1 },
-  "item_type",
-  { data_type => "varchar", is_nullable => 1, size => 20 },
 );
 
 =head1 PRIMARY KEY
@@ -83,9 +75,26 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("id");
 
+=head1 RELATIONS
 
-# Created by DBIx::Class::Schema::Loader v0.07037 @ 2014-01-25 12:20:54
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:V3n9TiNM4eN6sttVOkwWCw
+=head2 wines
+
+Type: has_many
+
+Related object: L<Mauro::MauroDB::Result::Wine>
+
+=cut
+
+__PACKAGE__->has_many(
+  "wines",
+  "Mauro::MauroDB::Result::Wine",
+  { "foreign.italian_region" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-04-06 16:29:42
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:LHrOrXFD0InOBBfmT0toUw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

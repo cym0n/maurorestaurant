@@ -1,22 +1,8 @@
 attributes:
     class: well 
 elements:
-    - type: Select
-      id: category_selector
-      name: category
-      label: categoria
-      constraints:
-        type: Required
-        message: 'Categoria necessaria<br />'
-    - type: Select
-      name: subcategory
-      label: sottocategoria
-      id: subcat
-    - type: Block
-      tag: div
-      id: tags-place
-      attributes:
-        class: text label
+    - type: '+Strehler::FormFu::Element::Category'
+    - type: '+Strehler::FormFu::Element::Tags'
     - name: name
       label: Nome
       attributes: 
@@ -32,10 +18,16 @@ elements:
       label: Regione
       attributes: 
         class: span8
-    - type: Strehler::EntitySelect
+    - type: '+Strehler::FormFu::Element::EntitySelect'
       name: winery
       element: Mauro::Element::Winery
       label: Cantina
+      attributes: 
+        class: span8
+    - type: '+Strehler::FormFu::Element::EntitySelect'
+      name: italian_region
+      element: Mauro::Element::ItalianRegion
+      label: Regione Italiana
       attributes: 
         class: span8
     - name: save

@@ -4,6 +4,7 @@ use Dancer2;
 use Dancer2::Plugin::Multilang;
 use Text::Markdown 'markdown';
 use Mauro::Element::Wine;
+use Mauro::Element::ItalianRegion;
 use Data::Dumper;
 
 set layout => 'mauro';
@@ -68,7 +69,7 @@ get '/menu' => sub
   my %text_data;
   foreach my $cat ('antipasti', 'primi', 'secondi di carne', 'secondi di pesce', 'desserts')  
   {
-    my $plates = Strehler::Element::Article->get_list({category => 'menu/'.$cat, 'entries_per_page' => -1, published => 1, ext => 1, language => language});
+    my $plates = Strehler::Element::Article->get_list({category => 'menu/'.$cat, 'entries_per_page' => -1, published => 1, ext => 1, language => language, order_by => 'display_order', order => 'asc'});
     my $tpltag = $cat;
     $tpltag =~ s/ //g;
     $items{$tpltag} = $plates->{'to_view'};
@@ -81,7 +82,7 @@ get '/menu' => sub
   }
   else
   {
-        %text_data = undef;
+        %text_data = ();
   }
   my %page_title = ( it => 'Menu',
                      en => 'Menu' );
@@ -140,11 +141,11 @@ get '/business-lunch' => sub
 
 get '/vini/vini-rossi|/wine/red-wine' => sub
 {
-    template "wines-list", wines('vini rossi', language);
+    template "italian-wines-list", italian_wines('vini rossi', language);
 };
 get '/vini/vini-bianchi|/wine/white-wine' => sub
 {
-    template "wines-list", wines('vini bianchi', language);
+    template "italian-wines-list", italian_wines('vini bianchi', language);
 };
 get '/vini/spumanti-italiani|/wine/italian-spumante' => sub
 {
@@ -156,12 +157,16 @@ get '/vini/champagne|wine/champagne' => sub
 };
 get '/vini/vini-rosati|wine/rosee-wine' => sub
 {
-    template "wines-list", wines('vini rosati', language);
+    template "italian-wines-list", italian_wines('vini rosati', language);
 };
-get '/per-le-aziende|/for-business' => sub
+get '/vini/vini-dessert|wine/dessert-wine' => sub
 {
-    my %page_title = ( it => 'Per le aziende',
-                       en => 'For business' );
+    template "wines-list", wines('vini da dessert', language);
+};
+get '/eventi-aziende|/events-business' => sub
+{
+    my %page_title = ( it => 'Eventi &#47; Aziende',
+                       en => 'Events &#47; Business' );
     my %page_description = ( it => "Sei un'azienza? Mauro Restaurant ha delle opportunit&agrave; per te",
                              en => 'Do you need a place for your business meetings? Mauro Restaurant could be the place!' );
     my $lang = language;
@@ -205,6 +210,9 @@ sub wines
                         'spumanti italiani' =>
                         { 'it' => 'Spumanti Italiani',
                           'en' => 'Italian Spumante' },
+                        'vini da dessert' =>
+                        { 'it' => 'Vini da dessert',
+                          'en' => 'Dessert Wines' },
                         'champagne' => 
                         { 'it' => 'Champagne',
                           'en' => 'Champagne' } );
@@ -220,6 +228,9 @@ sub wines
                                     'spumanti italiani' =>
                                     { 'it' => 'spumanti italiani',
                                       'en' => 'italian spumante' },
+                                    'vini da dessert' =>
+                                    { 'it' => 'vini da dessert',
+                                      'en' => 'dessert wine' },
                                     'champagne' => 
                                     { 'it' => 'champagne',
                                       'en' => 'champagne' } );
@@ -234,5 +245,28 @@ sub wines
     }
     my $wines = Mauro::Element::Wine->get_list({category => 'vini/' . $wine_type, 'entries_per_page' => -1, published => 1, order_by => ['region', 'name'], order => 'ASC'});
     return { title => $page_titles{$wine_type}{$lang}, description => $page_description, language => $lang, wines => $wines->{to_view}, wines_open => 1 };                     
+}
+sub italian_wines
+{
+    my $wine_type = shift;
+    my $lang = shift;
+    my $data = wines($wine_type, $lang);
+    my $regions_configured = Mauro::Element::ItalianRegion->get_list({ order_by => 'display_order', order => 'ASC', entries_per_page => -1 });
+    my $regions;
+    foreach my $r (@{$regions_configured->{to_view}})
+    {
+        push @{$regions}, $r->{name};
+        $data->{$r->{name}} = ();
+    }
+    $data->{regions} = $regions;
+    foreach my $w (@{$data->{'wines'}})
+    {
+        if($w && $w->{region})
+        {
+            push @{$data->{$w->{region}}}, $w;
+        }
+    }
+    $data->{language} = $lang;
+    return $data;
 }
 1;

@@ -32,4 +32,17 @@ sub winery
     }
     return \%data;
 }
+
+sub region
+{
+    my $self = shift;
+    if($self->row->italian_region)
+    {
+        return $self->row->italian_region->name;
+    }
+    else
+    {
+        return $self->row->region;
+    }
+}
 1;

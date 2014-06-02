@@ -15,11 +15,10 @@
     padding-top: 40px;
     padding-bottom: 40px;
 }
-.error_message
+.error-msg
 {
-    font-size: 1.6em;
-    padding: 10px;
-    color: #FFE303;
+    font-weight: bold;
+    color: #ED0000;
 }
 .divider
 {
@@ -33,6 +32,16 @@
 {
     margin-top: 4px;
     margin-left: 12px;
+}
+table th .ordered
+{
+    margin-left: 8px;
+    margin-top: 8px;
+}
+table th .asc
+{
+    border-top-width: 0;
+    border-bottom: 4px solid #000000;
 }
 .articlelist .thumbnail img
 {
@@ -52,6 +61,16 @@
 {
     margin-bottom: 10px;
 }
+.categorylist .categoryadd div
+{
+    display: inline-block;
+}
+.categorylist .categoryadd button
+{
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
 #tags-place
 {
     margin-bottom: 7px;
@@ -74,5 +93,17 @@
 .table .sub_category
 {
     padding-left: 40px;
+}
+.order-widget div
+{
+    display: inline-block;
+}
+.order-widget button
+{
+    margin-bottom: 12px;
+}
+.btn-tools
+{
+    margin-bottom: 7px;
 }
 

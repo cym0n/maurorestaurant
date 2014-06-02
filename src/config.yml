@@ -59,6 +59,9 @@ Strehler:
             form: forms/myadmin/wine.yml
             categorized: 1
             publishable: 1
-        
-        
-
+        itregion:
+            auto: 1
+            label: Regioni
+            class: Mauro::Element::ItalianRegion
+            form: forms/myadmin/region.yml
+            ordered: 1

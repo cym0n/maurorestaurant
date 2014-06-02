@@ -1,6 +1,6 @@
 <div><p><a href="/location">LOCATION</a></p></div>
 <div><p><a href="/menu">MENU</a></p></div>
-<div><p><a href="/for-business">FOR BUSINESS</a></p></div>
+<div><p><a href="/events-business">EVENTS / BUSINESS</a></p></div>
 <div id="wines-menu"><p><a href="#">WINE</a></p>
     <div id="wines-submenu">
         <p><a href="/wine/red-wine">RED WINE</a></p>
@@ -8,6 +8,7 @@
         <p><a href="/wine/rosee-wine">ROSEE WINE</a></p>
         <p><a href="/wine/italian-spumante">ITALIAN SPUMANTE</a></p>
         <p><a href="/wine/champagne">CHAMPAGNE</a></p>
+        <p><a href="/wine/dessert-wine">DESSERT WINE</a></p>
     </div>
 </div>
 <div><p><a href="/social-networks">SOCIAL NETWORKS</a></p></div>
