@@ -30,7 +30,8 @@
          $(".rslides").responsiveSlides({
             auto: false,
             pager: true,
-            manualControls: '#unique-pager'
+            nav: true,
+            manualControls: '#unique-pager',
          });
      });
     </script>
