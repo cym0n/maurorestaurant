@@ -283,4 +283,13 @@ h2
 {
     color: #FFCC11;
 }
+.rslides img {
+    width: 250px;
+    height: 250px;
+    margin-left: 150px;
+}
+
+.rslides_nav {
+    margin-top: -170px;
+}
 

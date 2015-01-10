@@ -5,8 +5,8 @@
 <head prefix="og: http://ogp.me/ns#">
     <title>Mauro Restaurant - [% title %]</title>
     <meta name="description" content="[% page_description %]" />
-    <link rel="stylesheet" href="[% request.uri_base %]/css/main.css" />
     <link rel="stylesheet" href="[% request.uri_base %]/css/responsiveslides.css" />
+    <link rel="stylesheet" href="[% request.uri_base %]/css/main.css" />
     <meta property="og:url" content="http://www.maurorestaurant.it" />
     <meta property="og:type" content="website"/>
     <meta property="og:title" content="Mauro Restaurant"/>
