@@ -1,5 +1,8 @@
 [% PROCESS "common/$language/vocabulary.tt" %]
 <h1>[% claim.title %]</h1>
+[% IF claim.image %]
+<img src="[% claim.image %]" />
+[% END %]
 <div class="business-claim">[% claim.text %]</div>
 
 [% IF antipasti.size %]
