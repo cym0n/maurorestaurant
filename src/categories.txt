@@ -1,0 +1,20 @@
+eventi
+eventi/primi
+eventi/antipasti
+eventi/secondi di carne
+eventi/secondi di pesce
+eventi/contorni
+pagine/eventi
+menu/primi
+    article;business,eventi
+menu/antipasti
+    article;business,eventi
+menu/secondi di carne
+    article;business,eventi
+menu/secondi di pesce
+    article;business,eventi
+menu/contorni
+    article;business,eventi
+menu/desserts
+    article;business,eventi
+

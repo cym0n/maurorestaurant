@@ -125,9 +125,9 @@ get '/business-lunch' => sub
   my %text_data = $text->get_ext_data(language);
   $text_data{'text'} = markdown($text_data{'text'});
   my %items;
-  foreach my $cat ('antipasti', 'primi', 'secondi di carne', 'secondi di pesce', 'contorni')  
+  foreach my $cat ('antipasti', 'primi', 'secondi di carne', 'secondi di pesce', 'contorni', 'desserts')  
   {
-    my $plates = Strehler::Element::Article->get_list({category => 'menu/'. $cat, tag => 'business', 'entries_per_page' => -1, published => 1});
+    my $plates = Strehler::Element::Article->get_list({category => 'menu/'. $cat, tag => 'business', 'entries_per_page' => -1, published => 1 });
     my $plates_only_bus = Strehler::Element::Article->get_list({category => 'businessmenu/'. $cat, 'entries_per_page' => -1, published => 1});
     my @elements = (@{$plates->{'to_view'}}, @{$plates_only_bus->{'to_view'}});
     my $tpltag = $cat;
@@ -163,7 +163,7 @@ get '/vini/vini-dessert|wine/dessert-wine' => sub
 {
     template "wines-list", wines('vini da dessert', language);
 };
-get '/eventi-aziende|/events-business' => sub
+get '/aziende|/business' => sub
 {
     my %page_title = ( it => 'Eventi &#47; Aziende',
                        en => 'Events &#47; Business' );
@@ -191,6 +191,34 @@ get '/gallery' => sub
    
     template "gallery.tt", { language => language, images => \@images};
 
+};
+get '/eventi|/events' => sub
+{
+  my $lang = language;
+  my %page_title = ( it => 'Eventi',
+                     en => 'Events' );
+  my %page_description = ( it => "Gli eventi che coinvolgono Mauro Restaurant",
+                           en => 'Events of Mauro Restaurant' );
+  my $text = Strehler::Element::Article->get_last_by_date('pagine/eventi', language);
+  my %text_data;
+  if($text)
+  {
+    %text_data = $text->get_ext_data(language);
+    $text_data{'text'} = markdown($text_data{'text'});
+  }
+  my %items;
+  foreach my $cat ('antipasti', 'primi', 'secondi di carne', 'secondi di pesce', 'contorni', 'desserts')  
+  {
+    my $plates = Strehler::Element::Article->get_list({category => 'menu/'. $cat, tag => 'eventi', 'entries_per_page' => -1, published => 1, language => $lang, ext => 1});
+    my $plates_only_bus = Strehler::Element::Article->get_list({category => 'eventi/'. $cat, 'entries_per_page' => -1, published => 1, language => $lang, ext => 1});
+    my @elements = (@{$plates->{'to_view'}}, @{$plates_only_bus->{'to_view'}});
+    my $tpltag = $cat;
+    $tpltag =~ s/ //g;
+    $items{$tpltag} = \@elements
+  }
+  my @main = (@{$items{'secondidicarne'}}, @{$items{'secondidipesce'}});
+  $items{'secondi'} = \@main;    
+  template "business-lunch", { title => $page_title{$lang}, page_description => $page_description{$lang}, language => language, claim => \%text_data, %items }; 
 };
 
 

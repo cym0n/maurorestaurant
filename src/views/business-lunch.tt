@@ -1,5 +1,5 @@
 [% PROCESS "common/$language/vocabulary.tt" %]
-<h1>Business Lunch</h1>
+<h1>[% claim.title %]</h1>
 <div class="business-claim">[% claim.text %]</div>
 
 [% IF antipasti.size %]
@@ -26,6 +26,13 @@
 [% IF contorni.size %]
 <h2>[% translate.SIDES %]</h2>
 [% FOREACH p = contorni %]
+<p class="menuplate">[% p.title %]</p>
+[% END %]
+[% END %]
+
+[% IF desserts.size %]
+<h2>[% translate.DESSERTS %]</h2>
+[% FOREACH p = desserts %]
 <p class="menuplate">[% p.title %]</p>
 [% END %]
 [% END %]
