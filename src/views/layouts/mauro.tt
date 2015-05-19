@@ -69,7 +69,8 @@
         </div>
         <div class="main">
             <div class="navbar">
-                <div id="TA_rated710" class="TA_rated"><ul id="iWe36My8Md" class="TA_links ZfqTbO1bsJi"><li id="BLDirtocHV" class="wwyhzV4HN"><a href="http://www.tripadvisor.it/Restaurant_Review-g187849-d4558690-Reviews-Mauro_Restaurant-Milan_Lombardy.html">Mauro Restaurant</a></li></ul></div><script src="http://www.jscache.com/wejs?wtype=rated&amp;uniq=710&amp;locationId=4558690&amp;lang=[% language %]"></script>
+                <!-- div id="TA_rated710" class="TA_rated"><ul id="iWe36My8Md" class="TA_links ZfqTbO1bsJi"><li id="BLDirtocHV" class="wwyhzV4HN"><a href="http://www.tripadvisor.it/Restaurant_Review-g187849-d4558690-Reviews-Mauro_Restaurant-Milan_Lombardy.html">Mauro Restaurant</a></li></ul></div><script src="http://www.jscache.com/wejs?wtype=rated&amp;uniq=710&amp;locationId=4558690&amp;lang=[% language %]"></script -->
+                <div id="TA_certificateOfExcellence607" class="TA_certificateOfExcellence"><ul id="dQ8ufSBbCD6" class="TA_links fL9imWC9uGTt"><li id="zVUBrG" class="b7F9r9xfHO76"><a target="_blank" href="http://www.tripadvisor.it/Restaurant_Review-g187849-d4558690-Reviews-Mauro_Restaurant-Milan_Lombardy.html"><img src="http://www.tripadvisor.it/img/cdsi/img2/awards/CoE2015_WidgetAsset-14348-2.png" alt="TripAdvisor" class="widCOEImg" id="CDSWIDCOELOGO"/></a></li></ul></div><script src="http://www.jscache.com/wejs?wtype=certificateOfExcellence&amp;uniq=607&amp;locationId=4558690&amp;lang=it&amp;year=2015&amp;display_version=2"></script>
                 <div class="language">
                     <a href="/it/"><img class="flag" src="/images/Italy-icon.png" /></a>
                     <a href="/en/"><img class="flag" src="/images/United-Kingdo-icon.png" /></a>
